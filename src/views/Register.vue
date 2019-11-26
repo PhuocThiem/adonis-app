@@ -29,11 +29,13 @@
                     label="Username"
                     prepend-icon="mdi-account"
                     type="text"
+                    v-model="username"
                   ></v-text-field>
                   <v-text-field
                     label="Email"
                     prepend-icon="mdi-email-mark-as-unread "
                     type="text"
+                    v-model="email"
                   ></v-text-field>
 
                   <v-text-field
@@ -41,12 +43,13 @@
                     label="Password"
                     prepend-icon="mdi-account-key"
                     type="password"
+                    v-model="password"
                   ></v-text-field>
                 </v-form>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary">Regiter
+                <v-btn color="primary" @click="register(username, email, password)">Regiter
                 </v-btn>
               </v-card-actions>
             </v-card>
@@ -56,3 +59,23 @@
     </v-content>
   </v-app>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+      username: '',
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    register (username, email, password) {
+      console.log(username)
+      console.log(email)
+      console.log(password)
+      this.$store.dispatch('register', { username, email, password })
+    }
+  }
+}
+</script>

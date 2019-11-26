@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import User from './users'
+import users from './users'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  User
+  users
 })
