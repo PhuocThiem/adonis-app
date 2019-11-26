@@ -4,10 +4,10 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
 import '@mdi/font/css/materialdesignicons.css'
-// import lodash from './mixin/lodash'
+import lodash from './mixin/lodash'
 
-// const mixins = [lodash]
-// mixins.forEach(mixin => Vue.mixin(mixin))
+const mixins = [lodash]
+mixins.forEach(mixin => Vue.mixin(mixin))
 
 Vue.config.productionTip = false
 

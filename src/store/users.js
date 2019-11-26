@@ -22,8 +22,13 @@ const actions = {
   async register ({ commit }, { username, email, password }) {
     commit(REGISTER_USER_REQUEST)
     try {
-      const res = await 
-    } catch (error)
+      const res = await User.register(username, email, password)
+      const data = get(res, 'data')
+      console.log('data')
+      commit(REGISTER_USER_SUCCESS, { data: data })
+    } catch (error) {
+      commit(REGISTER_USER_FAIL, { error: serializeError(error) })
+    }
   }
 }
 
