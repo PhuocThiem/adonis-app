@@ -1,4 +1,4 @@
-// import { get } from 'lodash'
+import { get } from 'lodash'
 import { serializeError } from 'serialize-error'
 
 import User from '../api/users'
@@ -6,7 +6,10 @@ import User from '../api/users'
 import {
   REGISTER_USER_REQUEST,
   REGISTER_USER_SUCCESS,
-  REGISTER_USER_FAIL
+  REGISTER_USER_FAIL,
+  LOGIN_USER_REQUEST,
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_FAIL
 } from '../constants/mutationTypes'
 
 const state = {
@@ -19,15 +22,26 @@ const state = {
 }
 
 const actions = {
-  async signUp ({ commit }, { username, email, password }) {
+  async register ({ commit }, { username, email, password }) {
     commit(REGISTER_USER_REQUEST)
     try {
       const res = await User.register(username, email, password)
-      // const data = get(res, 'data')
-      console.log('res', res)
-      commit(REGISTER_USER_SUCCESS, res)
+      const data = get(res, 'data')
+      console.log('data', data)
+      commit(REGISTER_USER_SUCCESS, data)
     } catch (error) {
       commit(REGISTER_USER_FAIL, { error: serializeError(error) })
+    }
+  },
+  async logIn ({ commit }, { email, password }) {
+    commit(LOGIN_USER_REQUEST)
+    try {
+      const res = await User.logIn(email, password)
+      const data = get(res, 'data')
+      console.log('data', data)
+      commit(LOGIN_USER_SUCCESS, data)
+    } catch (error) {
+      commit(LOGIN_USER_FAIL, { error: serializeError(error) })
     }
   }
 }
@@ -43,6 +57,20 @@ const mutations = {
     state.user.result = payload
   },
   [REGISTER_USER_FAIL] (state, payload) {
+    state.user.requesting = false
+    state.user.status = 'error'
+    state.user.result = payload.error
+  },
+  [LOGIN_USER_REQUEST] (state) {
+    state.user.requesting = true
+    state.user.status = 'requesting..'
+  },
+  [LOGIN_USER_SUCCESS] (state, payload) {
+    state.user.requesting = false
+    state.user.status = 'success'
+    state.user.result = payload
+  },
+  [LOGIN_USER_FAIL] (state, payload) {
     state.user.requesting = false
     state.user.status = 'error'
     state.user.result = payload.error

@@ -5,6 +5,9 @@ import store from './store'
 import vuetify from './plugins/vuetify'
 import '@mdi/font/css/materialdesignicons.css'
 import lodash from './mixin/lodash'
+import Vuelidate from 'vuelidate'
+
+Vue.use(Vuelidate)
 
 const mixins = [lodash]
 mixins.forEach(mixin => Vue.mixin(mixin))

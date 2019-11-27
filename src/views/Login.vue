@@ -20,28 +20,42 @@
                 dark
                 flat
               >
-                <v-toolbar-title>Register</v-toolbar-title>
+                <v-toolbar-title>Login</v-toolbar-title>
                 <v-spacer></v-spacer>
               </v-toolbar>
               <v-card-text>
                 <v-form>
                   <v-text-field
+                    :counter="50"
                     label="Email"
+                    :error-messages="emailErrors"
                     prepend-icon="mdi-email-mark-as-unread "
                     type="text"
+                    v-model="email"
+                    required
+                    @input="$v.email.$touch()"
+                    @blur="$v.email.$touch()"
                   ></v-text-field>
 
                   <v-text-field
+                    :counter="50"
                     id="Password"
                     label="Password"
+                    :error-messages="passwordErrors"
                     prepend-icon="mdi-account-key"
                     type="password"
+                    v-model="password"
+                    @input="$v.password.$touch()"
+                    @blur="$v.password.$touch()"
                   ></v-text-field>
                 </v-form>
               </v-card-text>
-              <v-card-actions style="margin-top: 0px">
+              <v-card-actions>
+                <a href="http://localhost:8080/register" style="margin-left: 20px" target="_blank">You do not have an account?</a>
                 <v-spacer></v-spacer>
-                <v-btn color="primary">Submit
+                <v-btn color="success" @click.prevent="logIn(email, password)" :disabled="emailErrors.length > 0 || passwordErrors.length >0">Login
+                </v-btn>
+                <v-btn color="warning" @click.prevent="clear()" :disabled="!email && !password">Clear
                 </v-btn>
               </v-card-actions>
             </v-card>
@@ -51,3 +65,56 @@
     </v-content>
   </v-app>
 </template>
+
+<script>
+import { validationMixin } from 'vuelidate'
+import { required, minLength, email, maxLength } from 'vuelidate/lib/validators'
+
+export default {
+  mixins: [validationMixin],
+
+  validations: {
+    email: { required, email, minLength: minLength(8), maxLength: maxLength(50) },
+    password: { required, minLength: minLength(8), maxLength: maxLength(50) }
+  },
+
+  data () {
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  computed: {
+    emailErrors () {
+      const errors = []
+      if (!this.$v.email.$dirty) return errors
+      !this.$v.email.required && errors.push('E-mail is required')
+      !this.$v.email.minLength &&
+        errors.push('Email must be at least 8 characters long')
+      !this.$v.email.email && errors.push('Must be valid e-mail')
+      !this.$v.email.maxLength &&
+        errors.push('Email must be at most 50 characters long')
+      return errors
+    },
+    passwordErrors () {
+      const errors = []
+      if (!this.$v.password.$dirty) return errors
+      !this.$v.password.required && errors.push('Password is required')
+      !this.$v.password.minLength &&
+        errors.push('Password must be at least 8 characters long')
+      !this.$v.password.maxLength &&
+        errors.push('Password must be at most 50 characters long')
+      return errors
+    }
+  },
+  methods: {
+    logIn (email, password) {
+      this.$store.dispatch('logIn', { email, password })
+    },
+    clear () {
+      this.email = ''
+      this.password = ''
+    }
+  }
+}
+</script>
