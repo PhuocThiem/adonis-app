@@ -49,7 +49,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" @click="register(username, email, password)">Regiter
+                <v-btn color="primary" @click.prevent="register(username, email, password)">Regiter
                 </v-btn>
               </v-card-actions>
             </v-card>
@@ -61,6 +61,7 @@
 </template>
 
 <script>
+
 export default {
   data () {
     return {
@@ -74,7 +75,7 @@ export default {
       console.log(username)
       console.log(email)
       console.log(password)
-      this.$store.dispatch('register', { username, email, password })
+      this.$store.dispatch('signUp', { username, email, password })
     }
   }
 }

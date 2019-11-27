@@ -1,4 +1,4 @@
-import { get } from 'lodash'
+// import { get } from 'lodash'
 import { serializeError } from 'serialize-error'
 
 import User from '../api/users'
@@ -19,13 +19,13 @@ const state = {
 }
 
 const actions = {
-  async register ({ commit }, { username, email, password }) {
+  async signUp ({ commit }, { username, email, password }) {
     commit(REGISTER_USER_REQUEST)
     try {
       const res = await User.register(username, email, password)
-      const data = get(res, 'data')
-      console.log('data')
-      commit(REGISTER_USER_SUCCESS, { data: data })
+      // const data = get(res, 'data')
+      console.log('res', res)
+      commit(REGISTER_USER_SUCCESS, res)
     } catch (error) {
       commit(REGISTER_USER_FAIL, { error: serializeError(error) })
     }
@@ -44,7 +44,7 @@ const mutations = {
   },
   [REGISTER_USER_FAIL] (state, payload) {
     state.user.requesting = false
-    state.user.status = 'success'
+    state.user.status = 'error'
     state.user.result = payload.error
   }
 }

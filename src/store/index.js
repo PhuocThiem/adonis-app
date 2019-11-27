@@ -5,5 +5,7 @@ import users from './users'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  users
+  modules: {
+    users
+  }
 })
