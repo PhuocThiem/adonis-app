@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
+import Storage from '../services/storage'
 
 Vue.use(VueRouter)
 
@@ -15,12 +16,20 @@ const routes = [
   {
     path: '/register',
     name: 'register',
-    component: Register
+    component: Register,
+    meta: {
+      public: true,
+      onlyWhenLogOut: true
+    }
   },
   {
     path: '/login',
     name: 'login',
-    component: Login
+    component: Login,
+    meta: {
+      public: true,
+      onlyWhenLogOut: true
+    }
   }
 ]
 
@@ -28,6 +37,25 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const token = Storage.getItem()
+
+  const isPublic = to.matched.some(record => record.meta.public)
+  const onlyWhenLogout = to.matched.some(record => record.meta.onlyWhenLogOut)
+
+  if (!isPublic && !token) {
+    return next({
+      path: '/login',
+      query: { redirect: to.fullPath }
+    })
+  }
+
+  if (token && onlyWhenLogout) {
+    return next('/')
+  }
+  return next()
 })
 
 export default router

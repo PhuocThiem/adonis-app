@@ -2,6 +2,9 @@ import { get } from 'lodash'
 import { serializeError } from 'serialize-error'
 
 import User from '../api/users'
+import Storage from '../services/storage'
+import router from '../router'
+// import axios from 'axios'
 
 import {
   REGISTER_USER_REQUEST,
@@ -27,7 +30,8 @@ const actions = {
     try {
       const res = await User.register(username, email, password)
       const data = get(res, 'data')
-      console.log('data', data)
+      const token = get(res, 'data.token')
+      Storage.setItem(token)
       commit(REGISTER_USER_SUCCESS, data)
     } catch (error) {
       commit(REGISTER_USER_FAIL, { error: serializeError(error) })
@@ -38,7 +42,11 @@ const actions = {
     try {
       const res = await User.logIn(email, password)
       const data = get(res, 'data')
-      console.log('data', data)
+      const token = get(res, 'data.token')
+      Storage.setItem(token)
+      const redirectPath = get(router, 'currentRoute.query.redirect')
+      console.log('redirectPath', redirectPath)
+      router.push(redirectPath)
       commit(LOGIN_USER_SUCCESS, data)
     } catch (error) {
       commit(LOGIN_USER_FAIL, { error: serializeError(error) })
