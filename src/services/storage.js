@@ -5,9 +5,9 @@ export default class Storage {
     return localStorage.setItem(key, value)
   }
   static getItem (value, key = KEY_LOGIN) {
-    return localStorage.setItem(key, value)
+    return localStorage.getItem(key, value)
   }
   static removeItem (value, key = KEY_LOGIN) {
-    return localStorage.setItem(key, value)
+    return localStorage.removeItem(key, value)
   }
 }
