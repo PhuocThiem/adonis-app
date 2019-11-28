@@ -108,8 +108,9 @@ export default {
     }
   },
   methods: {
-    logIn (email, password) {
-      this.$store.dispatch('logIn', { email, password })
+    async logIn (email, password) {
+      await this.$store.dispatch('logIn', { email, password })
+      return this.$router.push({ path: '/' })
     },
     clear () {
       this.email = ''
