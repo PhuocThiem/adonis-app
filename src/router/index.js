@@ -4,6 +4,9 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Storage from '../services/storage'
+import Profile from '../views/Profile.vue'
+import MyPost from '../views/MyPost.vue'
+import FavoritePost from '../views/FavoritePost.vue'
 
 Vue.use(VueRouter)
 
@@ -12,6 +15,21 @@ const routes = [
     path: '/',
     name: 'home',
     component: Home
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: Profile
+  },
+  {
+    path: '/mypost',
+    name: 'My Post',
+    component: MyPost
+  },
+  {
+    path: '/favoritepost',
+    name: 'Favorite Post',
+    component: FavoritePost
   },
   {
     path: '/register',
