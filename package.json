@@ -42,7 +42,10 @@
       "plugin:vue/essential",
       "@vue/standard"
     ],
-    "rules": {},
+    "rules": {"quotes": [
+      2,
+      "single"
+    ]},
     "parserOptions": {
       "parser": "babel-eslint"
     }

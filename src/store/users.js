@@ -51,6 +51,9 @@ const actions = {
     } catch (error) {
       commit(LOGIN_USER_FAIL, { error: serializeError(error) })
     }
+  },
+  logOut (token) {
+    return Storage.removeItem(token)
   }
 }
 

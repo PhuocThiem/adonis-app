@@ -1,57 +1,84 @@
 <template>
-  <v-app>
-    <div class="header">
-      <h1 style="float: left;">Personal Blog</h1>
-      <button type="button" class="btn btn-secondary" @click="logOut">LogOut</button>
+  <div class="container-fluid">
+    <div
+      v-if="
+        _.get($route, 'meta.public', false) &&
+          _.get($route, 'meta.onlyWhenLogOut', false)
+      "
+    >
+      <router-view />
     </div>
-    <div class="row">
-      <div class="menu">
-        <div class="information">
-            <img class="image" style="height: 200px; width: 200px ; border-radius: 50%" src="https://scontent.fsgn2-3.fna.fbcdn.net/v/t1.0-9/52809915_376605666506476_5074019963438628864_n.jpg?_nc_cat=108&_nc_ohc=xDGPdZ9Rem0AQloy57MLHyaq0M3dkzOHZgatc4bideB7de3-7YXhfB0wA&_nc_ht=scontent.fsgn2-3.fna&oh=d3f832889bced9aa2fe7b8aa459fbf88&oe=5E81EFE0" alt="Avatar">
-          <h4>Username:{{}}</h4>
-          <h4>Email:{{}}</h4>
-          <h4>Phone:{{}}</h4>
-          <h4>Gender:{{}}</h4>
-          <h4>Address:{{}}</h4>
-          <h4>City:{{}}</h4>
-          <h4>Country:{{}}</h4>
-        <hr>
-          <ul style="padding-left: 10px; color: ">
-            <li v-for="(item, index) in menu" :key="index"><a :href="item.to">{{ item.name }}</a></li>
-          </ul>
-        </div>
+    <div v-else>
+    <nav class="navbar navbar-dark bg-dark" style="padding: 10px; width: 100%">
+      <div class="narvar-item" style="width: 100%; padding: 10px">
+        <label style="font-size: 40px; color: white">Personal Blog</label>
+        <button
+          class="btn warning"
+          @click="logOut"
+          style="float: right; margin-top: 12px; padding: 5px"
+        >
+          LogOut
+        </button>
       </div>
-      <div class="container">
+    </nav>
+    <div class="sidenav">
+      <div class="detail">
+        <img
+          style="height: 150px; width: 150px; border-radius: 50%"
+          src="https://scontent.fsgn2-3.fna.fbcdn.net/v/t1.0-9/52809915_376605666506476_5074019963438628864_n.jpg?_nc_cat=108&_nc_ohc=xDGPdZ9Rem0AQloy57MLHyaq0M3dkzOHZgatc4bideB7de3-7YXhfB0wA&_nc_ht=scontent.fsgn2-3.fna&oh=d3f832889bced9aa2fe7b8aa459fbf88&oe=5E81EFE0"
+          alt="Nhi Vo"
+        />
+        <h4><v-icon>mdi-account-check</v-icon>{{}}</h4>
+        <h4><v-icon>mdi-email</v-icon>{{}}</h4>
+        <h4><v-icon>mdi-phone-classic</v-icon>{{}}</h4>
+        <h4><v-icon>mdi-map-marker</v-icon>{{}}</h4>
+        <br />
+        <br />
+        <hr />
+        <ul>
+          <h3>
+            <li v-for="(item, index) in menu" :key="index">{{ item.name }}</li>
+          </h3>
+        </ul>
+      </div>
+    </div>
+    <!-- Page content -->
+    <div class="main">
+      <div class="content">
         <router-view></router-view>
       </div>
     </div>
-  </v-app>
+  </div>
+  </div>
 </template>
+
 <script>
 import Storage from './services/storage'
+
 export default {
   data () {
     return {
       menu: [
         {
           name: 'Profile',
-          to: '/profile'
+          to: 'profile'
         },
         {
           name: 'My Post',
-          to: '/mypost'
+          to: 'mypost'
         },
         {
           name: 'Favorite Post',
-          to: '/favoritePost'
+          to: 'favoritepost'
         }
       ]
     }
   },
   methods: {
     async logOut () {
-      await Storage.removeItem(Storage.setItem())
-      return this.$router.push({ path: '/login' })
+      const token = await Storage.getItem()
+      await this.$store.dispatch('logOut', token)
+      this.$router.push('login')
     }
   }
 }
@@ -62,75 +89,67 @@ export default {
   margin: 0;
   padding: 0;
 }
-h1 {
-  position: absolute;
-  top: 50%;
-  left: 7%;
-  transform: translate(-50%, -50%);
+.warning {
+  border-color: #ff9800;
+  color: orange;
 }
-.header {
-  height: 10%;
-  width: 100%;
-  position: relative;
-  background-image: linear-gradient(to right, #00537E, #3AA17E);
-  box-shadow: 10px 10px 10px;
+.sidenav {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 300px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-image: linear-gradient(to bottom, #3aa17e, #21759b); /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+  margin-top: 100px;
 }
-.row {
-  height: 90%;
-  width: 100%;
-  padding: 0;
-  margin: 0;
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
 }
-.menu {
-  box-shadow: 10px 10px 10px;
-  width: 20%;
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+/* Style page content */
+.main {
   height: 100%;
-  background-image: linear-gradient(#3AA17E, #00537E);
+  width: 100%;
 }
-.container {
-  width: 80%;
-  height: 100%;
-  float: left;
+.content {
+  margin-left: 300px;
+  padding: 15px;
 }
-.information {
-  margin: 30px auto 20px auto;
-  text-align: left;
-  max-width: 300px;
+.detail {
+  width: 200px;
+  margin-left: 50px;
 }
-h4 {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 10px;
+img {
+  margin-left: 25px;
 }
-.btn-secondary {
-  padding: 10px;
-  position: absolute;
-  top: 50%;
-  right: -1%;
-  transform: translate(-50%, -50%);
-  background-color: rgba(21, 78, 184, 0.74);
-    background-color: #3AA17E;
-    background-image: linear-gradient(to bottom, #3AA17E, #21759B);
-    box-shadow: 0 1px 0 rgba(120, 200, 230, 0.5) inset;
-    border-color: #21759B #21759B #1E6A8D;
-    border-width: 1px;
-    border-radius: 3px 3px 3px 3px
-}
-.btn:hover, .btn:focus {
-    background-color: rgb(2, 32, 202);
-    background-image: linear-gradient(to bottom,3AA17E,#00537E);
-    border-color: #1B607F;
-    box-shadow: 0 1px 0 rgba(120,200,230,0.6) inset;
-    text-shadow: 0 -1px 0 rgba(0,0,0,0.3)
-}
-.image {
-  margin: 10px 50px 10px 50px
+ul {
+  margin-top: 20px;
 }
 li {
-  margin: 0px;
-  list-style: none;
-  font-size: 30px;
-  color: white;
-  text-shadow: 2px 2px 4px #000000;
+  list-style-type: none;
+  margin-bottom: 10px;
+}
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-size: 18px;
+  }
 }
 </style>
