@@ -37,7 +37,7 @@
         <hr />
         <ul>
           <h3>
-            <li v-for="(item, index) in menu" :key="index">{{ item.name }}</li>
+            <li v-for="(item, index) in menu" :key="index"><router-link :to="item.to">{{ item.name }}</router-link></li>
           </h3>
         </ul>
       </div>
@@ -81,9 +81,9 @@ export default {
       this.$router.push('login')
     }
   },
-  async created () {
+  async mounted () {
     const token = await Storage.getItem()
-    this.$store.dispatch('getProfile', {token})
+    this.$store.dispatch('getProfile', { token })
   }
 }
 </script>
@@ -97,6 +97,9 @@ export default {
   border-color: #ff9800;
   color: orange;
 }
+.warning:hover {
+  background-image: linear-gradient(to bottom, #a17d3a1a, #9b5221);
+}
 .sidenav {
   height: 100%; /* Full-height: remove this if you want "auto" height */
   width: 300px; /* Set the width of the sidebar */
@@ -104,10 +107,13 @@ export default {
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
   left: 0;
-  background-image: linear-gradient(to bottom, #3aa17e, #21759b); /* Black */
+  background-image: linear-gradient(to bottom, #3aa17f1a, #21759b); /* Black */
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 20px;
   margin-top: 100px;
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
 }
 
 /* The navigation menu links */
@@ -123,7 +129,6 @@ export default {
 .sidenav a:hover {
   color: #f1f1f1;
 }
-
 /* Style page content */
 .main {
   height: 100%;
@@ -136,6 +141,7 @@ export default {
 .detail {
   width: 200px;
   margin-left: 50px;
+  color: white
 }
 img {
   margin-left: 25px;
@@ -146,6 +152,10 @@ ul {
 li {
   list-style-type: none;
   margin-bottom: 10px;
+}
+h3 {
+  color: white;
+  text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
 }
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
