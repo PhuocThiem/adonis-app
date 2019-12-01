@@ -80,6 +80,10 @@ export default {
       await this.$store.dispatch('logOut', token)
       this.$router.push('login')
     }
+  },
+  async created () {
+    const token = await Storage.getItem()
+    this.$store.dispatch('getProfile', {token})
   }
 }
 </script>
