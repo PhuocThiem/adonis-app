@@ -53,12 +53,6 @@ export default {
   },
   methods: {
     update (identifyCardNumber, phone, selected, address, city, country) {
-      console.log('id', identifyCardNumber)
-      console.log('phone', phone)
-      console.log('gender', selected)
-      console.log('address', address)
-      console.log('city', city)
-      console.log('country', country)
       this.$store.dispatch('setProfile', { identifyCardNumber, phone, selected, address, city, country })
     }
   }
