@@ -103,33 +103,19 @@ export default {
 .sidenav {
   height: 100%; /* Full-height: remove this if you want "auto" height */
   width: 300px; /* Set the width of the sidebar */
-  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  position: fixed; /*Fixed Sidebar (stay in place on scroll)*/
   z-index: 1; /* Stay on top */
-  top: 0; /* Stay at the top */
+  top: 0; /*Stay at the top */
   left: 0;
+  display: block;
   background-image: linear-gradient(to bottom, #3aa17f1a, #21759b); /* Black */
-  overflow-x: hidden; /* Disable horizontal scroll */
+  overflow-x: scroll; /* Disable horizontal scroll */
   padding-top: 20px;
   margin-top: 100px;
   -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
 }
-
-/* The navigation menu links */
-.sidenav a {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #818181;
-  display: block;
-}
-
-/* When you mouse over the navigation links, change their color */
-.sidenav a:hover {
-  color: #f1f1f1;
-}
-/* Style page content */
 .main {
   height: 100%;
   width: 100%;

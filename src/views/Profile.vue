@@ -44,7 +44,7 @@ export default {
     return {
       identifyCardNumber: '',
       phone: '',
-      genders: ['MALE', 'FEMALE', 'Undifine'],
+      genders: ['MALE', 'FEMALE', 'Undefine'],
       address: '',
       city: '',
       country: '',
