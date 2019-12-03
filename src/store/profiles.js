@@ -24,6 +24,7 @@ const actions = {
     try {
       const res = await Profile.setUserProfile(identifyCardNumber, phone, selected, address, city, country)
       const data = get(res, 'data')
+      console.log('data', data)
       commit(SET_USER_PROFILE_SUCCESS, { data: data })
     } catch (error) {
       commit(SET_USER_PROFILE_FAIL, { error: serializeError(error) })

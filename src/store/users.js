@@ -89,6 +89,7 @@ const mutations = {
 }
 
 const getters = {
+  user: state => get(state, 'user.result.data', {})
 }
 
 export default {

@@ -1,7 +1,8 @@
-// import http from '../services/http';
+import http from '../services/http'
+import Storage from '../services/storage'
 
 export default class Profile {
-  static setUserProfile (
+  static async setUserProfile (
     identifyCardNumber,
     phone,
     gender,
@@ -9,12 +10,7 @@ export default class Profile {
     city,
     country
   ) {
-    console.log('id', identifyCardNumber)
-    console.log('phone', phone)
-    console.log('gender', gender)
-    console.log('address', address)
-    console.log('city', city)
-    console.log('country', country)
-    // return http.post('/users/set-user-profile', { identifyCardNumber, phone, gender, address, city, country })
+    const token = await Storage.getItem()
+    return http.post('/users/set-user-profile ', { identifyCardNumber, phone, gender, address, city, country }, { headers: { 'Authorization': `Bearer ${token}` } })
   }
 }

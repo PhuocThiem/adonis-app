@@ -29,7 +29,7 @@
           alt="Nhi Vo"
         />
         <h4><v-icon>mdi-account-check</v-icon>{{}}</h4>
-        <h4><v-icon>mdi-email</v-icon>{{}}</h4>
+        <h4><v-icon>mdi-email</v-icon>{{ _.get(this.user, 'email')}}</h4>
         <h4><v-icon>mdi-phone-classic</v-icon>{{}}</h4>
         <h4><v-icon>mdi-map-marker</v-icon>{{}}</h4>
         <br />
@@ -54,6 +54,8 @@
 
 <script>
 import Storage from './services/storage'
+import { mapState, mapGetters } from 'vuex'
+import { get } from 'lodash'
 
 export default {
   data () {
@@ -74,6 +76,14 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapGetters({
+      requesting: state => get('user.state.user.requesting')
+    }),
+    ...mapState({
+      user: 'user'
+    })
+  },
   methods: {
     async logOut () {
       const token = await Storage.getItem()
@@ -82,8 +92,10 @@ export default {
     }
   },
   async mounted () {
-    const token = await Storage.getItem()
-    this.$store.dispatch('getProfile', { token })
+    console.log('user', this.user)
+    // const id = await get('user. id')
+    // console.log('id', this.id)
+    this.$store.dispatch('getProfile')
   }
 }
 </script>
@@ -103,13 +115,12 @@ export default {
 .sidenav {
   height: 100%; /* Full-height: remove this if you want "auto" height */
   width: 300px; /* Set the width of the sidebar */
-  position: fixed; /*Fixed Sidebar (stay in place on scroll)*/
+  position: fixed !important; /*Fixed Sidebar (stay in place on scroll)*/
   z-index: 1; /* Stay on top */
   top: 0; /*Stay at the top */
   left: 0;
-  display: block;
   background-image: linear-gradient(to bottom, #3aa17f1a, #21759b); /* Black */
-  overflow-x: scroll; /* Disable horizontal scroll */
+  overflow-y: scroll; /* Disable horizontal scroll */
   padding-top: 20px;
   margin-top: 100px;
   -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
@@ -119,6 +130,7 @@ export default {
 .main {
   height: 100%;
   width: 100%;
+  position: fixed !important;
 }
 .content {
   margin-left: 300px;
