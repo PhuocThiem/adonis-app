@@ -5,7 +5,6 @@ import User from '../api/users'
 import Storage from '../services/storage'
 import router from '../router'
 // import axios from 'axios'
-
 import {
   REGISTER_USER_REQUEST,
   REGISTER_USER_SUCCESS,
@@ -23,9 +22,8 @@ const state = {
     error: null
   }
 }
-
 const actions = {
-  async register ({ commit }, { username, email, password }) {
+  async register ({ commit, state }, { username, email, password }) {
     commit(REGISTER_USER_REQUEST)
     try {
       const res = await User.register(username, email, password)
@@ -89,7 +87,7 @@ const mutations = {
 }
 
 const getters = {
-  user: state => get(state, 'user.result.data', {})
+  user: state => get(state, 'user.result')
 }
 
 export default {

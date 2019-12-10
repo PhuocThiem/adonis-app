@@ -28,10 +28,10 @@
           src="https://scontent.fsgn2-3.fna.fbcdn.net/v/t1.0-9/52809915_376605666506476_5074019963438628864_n.jpg?_nc_cat=108&_nc_ohc=xDGPdZ9Rem0AQloy57MLHyaq0M3dkzOHZgatc4bideB7de3-7YXhfB0wA&_nc_ht=scontent.fsgn2-3.fna&oh=d3f832889bced9aa2fe7b8aa459fbf88&oe=5E81EFE0"
           alt="Nhi Vo"
         />
-        <h4><v-icon>mdi-account-check</v-icon>{{}}</h4>
-        <h4><v-icon>mdi-email</v-icon>{{ _.get(this.user, 'email')}}</h4>
-        <h4><v-icon>mdi-phone-classic</v-icon>{{}}</h4>
-        <h4><v-icon>mdi-map-marker</v-icon>{{}}</h4>
+        <h4><v-icon>mdi-account-check</v-icon> {{ _.get(user, 'username') }}</h4>
+        <h4><v-icon>mdi-email</v-icon> {{ _.get(user, 'email') }}</h4>
+        <h4><v-icon>mdi-phone-classic</v-icon> {{ _.get(profile, 'phone')}}</h4>
+        <h4><v-icon>mdi-map-marker</v-icon> {{ _.get(profile, 'address')}}</h4>
         <br />
         <br />
         <hr />
@@ -77,11 +77,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      requesting: state => get('user.state.user.requesting')
-    }),
     ...mapState({
-      user: 'user'
+      requesting: state => get('users.state.user.requesting')
+    }),
+    ...mapGetters({
+      user: 'user',
+      profile: 'profile'
     })
   },
   methods: {
@@ -92,10 +93,8 @@ export default {
     }
   },
   async mounted () {
-    console.log('user', this.user)
-    // const id = await get('user. id')
-    // console.log('id', this.id)
-    this.$store.dispatch('getProfile')
+    const userID = await get(this.user, 'id')
+    this.$store.dispatch('getProfile', { userID })
   }
 }
 </script>
@@ -114,7 +113,7 @@ export default {
 }
 .sidenav {
   height: 100%; /* Full-height: remove this if you want "auto" height */
-  width: 300px; /* Set the width of the sidebar */
+  width: 400px; /* Set the width of the sidebar */
   position: fixed !important; /*Fixed Sidebar (stay in place on scroll)*/
   z-index: 1; /* Stay on top */
   top: 0; /*Stay at the top */
@@ -137,8 +136,8 @@ export default {
   padding: 15px;
 }
 .detail {
-  width: 200px;
-  margin-left: 50px;
+  width: 370px;
+  margin-left: 10px;
   color: white
 }
 img {
