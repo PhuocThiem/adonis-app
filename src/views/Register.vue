@@ -45,6 +45,17 @@
                     @input="$v.password.$touch()"
                     @blur="$v.password.$touch()"
                   ></v-text-field>
+                  <v-text-field
+                    :counter="50"
+                    id="ConfirmPassword"
+                    label="Confirm Password"
+                    :error-messages="confirmPasswordErrors"
+                    prepend-icon="mdi-lock-question "
+                    type="password"
+                    v-model="confirmPassword"
+                    @input="$v.confirmPassword.$touch()"
+                    @blur="$v.confirmPassword.$touch()"
+                  ></v-text-field>
                 </v-form>
               </v-card-text>
               <v-card-actions>
@@ -54,15 +65,16 @@
                   @click.prevent="register(username, email, password)"
                   :disabled="
                     usernameErrors.length > 0 ||
-                      emailErrors.length > 0 ||
-                      passwordErrors.length > 0
+                    emailErrors.length > 0 ||
+                    passwordErrors.length > 0 ||
+                    confirmPasswordErrors.length > 0
                   "
                   >Regiter
                 </v-btn>
                 <v-btn
                   color="warning"
                   @click.prevent="clear()"
-                  :disabled="!username && !email && !password"
+                  :disabled="!username && !email && !password && confirmPassword"
                   >Clear
                 </v-btn>
               </v-card-actions>
@@ -94,7 +106,8 @@ export default {
       minLength: minLength(8),
       maxLength: maxLength(50)
     },
-    password: { required, minLength: minLength(8), maxLength: maxLength(50) }
+    password: { required, minLength: minLength(8), maxLength: maxLength(50) },
+    confirmPassword: { required, minLength: minLength(8), maxLength: maxLength(50) }
   },
 
   data () {
@@ -102,6 +115,7 @@ export default {
       username: '',
       email: '',
       password: '',
+      confirmPassword: '',
       checkDisable: ''
     }
   },
@@ -136,6 +150,19 @@ export default {
       !this.$v.password.maxLength &&
         errors.push('Password must be at most 50 characters long')
       return errors
+    },
+    confirmPasswordErrors () {
+      const errors = []
+      if (!this.$v.confirmPassword.$dirty) return errors
+      !this.$v.confirmPassword.required && errors.push('Confirm password is required')
+      !this.$v.confirmPassword.minLength &&
+        errors.push('Confirm password must be at least 8 characters long')
+      !this.$v.confirmPassword.maxLength &&
+        errors.push('Confirm password must be at most 50 characters long')
+      if (this.password !== this.confirmPassword) {
+        errors.push('Confirm password does not match')
+      }
+      return errors
     }
   },
   methods: {
@@ -146,6 +173,7 @@ export default {
       this.username = ''
       this.email = ''
       this.password = ''
+      this.confirmPassword = ''
     }
   }
 }

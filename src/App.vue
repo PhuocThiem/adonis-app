@@ -132,7 +132,7 @@ export default {
   position: fixed !important;
 }
 .content {
-  margin-left: 300px;
+  margin-left: 370px;
   padding: 15px;
 }
 .detail {

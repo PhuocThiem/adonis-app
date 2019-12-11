@@ -5,7 +5,7 @@
       <form>
         <div class="form-group">
           <label>ID Card Number</label>
-          <input class="form-control" placeholder="ID Card Number" v-model="identifyCardNumber"/>
+          <input class="form-control" v-model="identifyCardNumber" placeholder="Identify Card Number"/>
           <small id="emailHelp" class="form-text text-muted"
             >We'll never share your email with anyone else.</small
           >
@@ -39,6 +39,9 @@
 </template>
 
 <script>
+
+import { mapState, mapGetters } from 'vuex'
+import { get } from 'lodash'
 export default {
   data () {
     return {
@@ -51,6 +54,16 @@ export default {
       selected: ''
     }
   },
+
+  computed: {
+    ...mapState({
+      requesting: state => get('users.state.user.requesting')
+    }),
+    ...mapGetters({
+      profile: 'profile'
+    })
+  },
+
   methods: {
     update (identifyCardNumber, phone, selected, address, city, country) {
       this.$store.dispatch('setProfile', { identifyCardNumber, phone, selected, address, city, country })
