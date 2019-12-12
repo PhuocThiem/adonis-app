@@ -52,6 +52,10 @@ const actions = {
   },
   logOut (token) {
     return Storage.removeItem(token)
+  },
+  activeEmail (email) {
+    console.log('storeEmail', email)
+    return User.active(email)
   }
 }
 

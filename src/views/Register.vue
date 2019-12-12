@@ -168,6 +168,7 @@ export default {
   methods: {
     register (username, email, password) {
       this.$store.dispatch('register', { username, email, password })
+      return this.$router.push({ path: '/' })
     },
     clear () {
       this.username = ''

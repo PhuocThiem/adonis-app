@@ -9,4 +9,8 @@ export default class User {
   static getProfile (token) {
     return http.get('/users/profile/:id', { token })
   }
+  static active (email) {
+    console.log('email', email)
+    return http.post('/users/resend-account-activation-email ', { email })
+  }
 }

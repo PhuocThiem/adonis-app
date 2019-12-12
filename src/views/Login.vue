@@ -25,6 +25,10 @@
               </v-toolbar>
               <v-card-text>
                 <v-form>
+                  <div v-if="!isActived">
+                    <label style="color: red; font-size: 16px">Your account has not been actived</label>
+                    <v-btn color="red" style="margin-left: 3px" @click.prevent="active(email)">Active now</v-btn>
+                  </div>
                   <v-text-field
                     :counter="50"
                     label="Email"
@@ -69,7 +73,8 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, minLength, email, maxLength } from 'vuelidate/lib/validators'
-
+import { mapGetters, mapState } from 'vuex'
+import { get } from 'lodash'
 export default {
   mixins: [validationMixin],
 
@@ -81,10 +86,17 @@ export default {
   data () {
     return {
       email: '',
-      password: ''
+      password: '',
+      isActived: true
     }
   },
   computed: {
+    ...mapState({
+      logInRequesting: state => get('users.state.user.requesting')
+    }),
+    ...mapGetters({
+      user: 'user'
+    }),
     emailErrors () {
       const errors = []
       if (!this.$v.email.$dirty) return errors
@@ -110,11 +122,18 @@ export default {
   methods: {
     async logIn (email, password) {
       await this.$store.dispatch('logIn', { email, password })
+      if (this.user.status === 403) {
+        this.isActived = false
+      }
       return this.$router.push({ path: '/' })
     },
     clear () {
       this.email = ''
       this.password = ''
+    },
+    async active (email) {
+      console.log('vuêmail', email)
+      this.$store.dispatch('activeEmail', { email })
     }
   }
 }
