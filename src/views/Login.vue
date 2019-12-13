@@ -133,7 +133,8 @@ export default {
     },
     async active (email) {
       console.log('vuêmail', email)
-      this.$store.dispatch('activeEmail', { email })
+      const sendEmail = await email
+      this.$store.dispatch('isActiveEmail', { sendEmail })
     }
   }
 }
