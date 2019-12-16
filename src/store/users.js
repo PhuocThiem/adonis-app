@@ -50,12 +50,11 @@ const actions = {
       commit(LOGIN_USER_FAIL, { error: serializeError(error) })
     }
   },
-  logOut (token) {
-    return Storage.removeItem(token)
+  logOut () {
+    return Storage.removeItem()
   },
-  isActiveEmail (sendEmail) {
-    console.log('storeEmail', sendEmail)
-    return User.active(sendEmail)
+  reSendEmail ({ commit }, email) {
+    User.active(email)
   }
 }
 

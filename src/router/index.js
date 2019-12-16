@@ -6,6 +6,7 @@ import Register from '../views/Register.vue'
 import Storage from '../services/storage'
 import Profile from '../views/Profile.vue'
 import MyPost from '../views/MyPost.vue'
+import ResetPassword from '../views/ResetPassword.vue'
 import FavoritePost from '../views/FavoritePost.vue'
 
 Vue.use(VueRouter)
@@ -44,6 +45,15 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login,
+    meta: {
+      public: true,
+      onlyWhenLogOut: true
+    }
+  },
+  {
+    path: '/resetpassword',
+    name: 'resetPassword',
+    component: ResetPassword,
     meta: {
       public: true,
       onlyWhenLogOut: true

@@ -53,7 +53,6 @@
 </template>
 
 <script>
-import Storage from './services/storage'
 import { mapState, mapGetters } from 'vuex'
 import { get } from 'lodash'
 
@@ -87,8 +86,7 @@ export default {
   },
   methods: {
     async logOut () {
-      const token = await Storage.getItem()
-      await this.$store.dispatch('logOut', token)
+      await this.$store.dispatch('logOut')
       this.$router.push('login')
     }
   },

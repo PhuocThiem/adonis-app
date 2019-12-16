@@ -25,9 +25,12 @@
               </v-toolbar>
               <v-card-text>
                 <v-form>
-                  <div v-if="!isActived">
+                  <div v-if="isActived">
                     <label style="color: red; font-size: 16px">Your account has not been actived</label>
                     <v-btn color="red" style="margin-left: 3px" @click.prevent="active(email)">Active now</v-btn>
+                  </div>
+                  <div v-if="counter">
+                    <label style="color: red; font-size: 16px">Activation email has been send to your email, you can get active in<h4> {{ this.time }}</h4> seconds</label>
                   </div>
                   <v-text-field
                     :counter="50"
@@ -57,7 +60,9 @@
               <v-card-actions>
                 <a href="http://localhost:8080/register" style="margin-left: 20px" target="_blank">You do not have an account?</a>
                 <v-spacer></v-spacer>
-                <v-btn color="success" @click.prevent="logIn(email, password)" :disabled="emailErrors.length > 0 || passwordErrors.length >0">Login
+                <a href="http://localhost:8080/resetpassword" style="margin-left: 20px; color: green" target="_blank">Forget password?</a>
+                <v-spacer></v-spacer>
+                <v-btn color="success" @click.prevent="logIn(email, password)" :disabled="emailErrors.length > 0 || passwordErrors.length >0 || counter">Login
                 </v-btn>
                 <v-btn color="warning" @click.prevent="clear()" :disabled="!email && !password">Clear
                 </v-btn>
@@ -87,7 +92,9 @@ export default {
     return {
       email: '',
       password: '',
-      isActived: true
+      isActived: false,
+      counter: false,
+      time: 60
     }
   },
   computed: {
@@ -123,7 +130,7 @@ export default {
     async logIn (email, password) {
       await this.$store.dispatch('logIn', { email, password })
       if (this.user.status === 403) {
-        this.isActived = false
+        this.isActived = true
       }
       return this.$router.push({ path: '/' })
     },
@@ -132,9 +139,16 @@ export default {
       this.password = ''
     },
     async active (email) {
-      console.log('vuêmail', email)
-      const sendEmail = await email
-      this.$store.dispatch('isActiveEmail', { sendEmail })
+      await this.$store.dispatch('reSendEmail', email)
+      this.counter = true
+      this.isActived = false
+      setInterval(() => {
+        this.time--
+        if (this.time === 0) {
+          this.counter = false
+          this.isActived = true
+        }
+      }, 1000)
     }
   }
 }

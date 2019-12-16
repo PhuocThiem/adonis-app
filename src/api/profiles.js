@@ -15,8 +15,6 @@ export default class Profile {
   }
   static async getProfile (userID) {
     const token = await Storage.getItem()
-    console.log('token', token)
-    console.log('UserID', userID)
     return http.get(`/users/profile/${userID}`, { headers: { 'Authorization': `bearer ${token}` } })
   }
 }
