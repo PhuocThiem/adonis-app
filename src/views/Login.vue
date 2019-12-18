@@ -32,6 +32,9 @@
                   <div v-if="counter">
                     <label style="color: red; font-size: 16px">Activation email has been send to your email, you can get active in<h4> {{ this.time }}</h4> seconds</label>
                   </div>
+                  <div v-if="showError">
+                    <label style="color: red; font-size: 16px"> Email or password is incorrect</label>
+                  </div>
                   <v-text-field
                     :counter="50"
                     label="Email"
@@ -62,7 +65,7 @@
                 <v-spacer></v-spacer>
                 <a href="http://localhost:8080/resetpassword" style="margin-left: 20px; color: green" target="_blank">Forget password?</a>
                 <v-spacer></v-spacer>
-                <v-btn color="success" @click.prevent="logIn(email, password)" :disabled="emailErrors.length > 0 || passwordErrors.length >0 || counter">Login
+                <v-btn color="success" @click.prevent="logIn(email, password)" :disabled="emailErrors.length > 0 || passwordErrors.length >0 || counter || !email || !password">Login
                 </v-btn>
                 <v-btn color="warning" @click.prevent="clear()" :disabled="!email && !password">Clear
                 </v-btn>
@@ -94,7 +97,8 @@ export default {
       password: '',
       isActived: false,
       counter: false,
-      time: 60
+      time: 60,
+      showError: false
     }
   },
   computed: {
@@ -131,6 +135,8 @@ export default {
       await this.$store.dispatch('logIn', { email, password })
       if (this.user.status === 403) {
         this.isActived = true
+      } else if (this.user.status === 401) {
+        this.showError = true
       }
       return this.$router.push({ path: '/' })
     },

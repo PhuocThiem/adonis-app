@@ -11,6 +11,9 @@
               </v-toolbar>
               <v-card-text>
                 <v-form>
+                  <div v-if="!error">
+                    <label style="color: red; font-size: 16px">{{ error }}</label>
+                  </div>
                   <v-text-field
                     :counter="50"
                     label="Username"
@@ -64,6 +67,7 @@
                   color="success"
                   @click.prevent="register(username, email, password)"
                   :disabled="
+                    !username || !email || !password || !confirmPassword ||
                     usernameErrors.length > 0 ||
                     emailErrors.length > 0 ||
                     passwordErrors.length > 0 ||
@@ -74,7 +78,7 @@
                 <v-btn
                   color="warning"
                   @click.prevent="clear()"
-                  :disabled="!username && !email && !password && confirmPassword"
+                  :disabled="!username && !email && !password && !confirmPassword"
                   >Clear
                 </v-btn>
               </v-card-actions>
@@ -87,7 +91,9 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from 'vuex'
 import { validationMixin } from 'vuelidate'
+import { get } from 'lodash'
 import {
   required,
   minLength,
@@ -116,10 +122,16 @@ export default {
       email: '',
       password: '',
       confirmPassword: '',
-      checkDisable: ''
+      error: ''
     }
   },
   computed: {
+    ...mapState({
+      logInRequesting: state => get('users.state.user.requesting')
+    }),
+    ...mapGetters({
+      user: 'user'
+    }),
     usernameErrors () {
       const errors = []
       if (!this.$v.username.$dirty) return errors
@@ -166,9 +178,17 @@ export default {
     }
   },
   methods: {
-    register (username, email, password) {
-      this.$store.dispatch('register', { username, email, password })
-      return this.$router.push({ path: '/' })
+    async register (username, email, password) {
+      await this.$store.dispatch('register', { username, email, password })
+      console.log('user', this.user)
+      if (this.user.status === 400) {
+        this.error = 'This email already exists'
+      } else if (this.user.status === 403) {
+        this.error4 = 'Your account is not activated, check your email to activated'
+      } else {
+        return this.$router.push({ path: '/' })
+      }
+      return this.error
     },
     clear () {
       this.username = ''
