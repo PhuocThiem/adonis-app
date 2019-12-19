@@ -12,9 +12,9 @@
           <v-flex
             xs12
             sm8
-            md4
+            md6
           >
-            <v-card class="elevation-12">
+            <v-card class="elevation-24" >
               <v-toolbar
                 color="blue"
                 dark
@@ -132,7 +132,7 @@ export default {
   },
   methods: {
     async logIn (email, password) {
-      await this.$store.dispatch('logIn', { email, password })
+      await this.$store.dispatch('logIn', { email: email.trim(), password: password.trim() })
       if (this.user.status === 403) {
         this.isActived = true
       } else if (this.user.status === 401) {

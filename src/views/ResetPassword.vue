@@ -17,6 +17,8 @@
           <v-card color="grey lighten-5" class="mb-12" style="padding: 5px">
             <v-text v-if="message" style="color: red; font-size: 18px"
               >The email is incorrect, Input again!</v-text
+            ><small id="emailHelp" class="form-text text-muted"
+              >Input your Email</small
             >
             <v-text-field
               :counter="50"
@@ -108,7 +110,6 @@
               @click.prevent="resetPassword(password)"
               >Submit</v-btn
             >
-            <v-btn text>Cancel</v-btn>
           </v-card>
         </v-stepper-content>
 
@@ -216,7 +217,7 @@ export default {
   },
   methods: {
     async getCode (email) {
-      await this.$store.dispatch('getCode', { email })
+      await this.$store.dispatch('getCode', { email: email.trim() })
       if (this.user.userId) {
         this.countStep = 2
         this.message = false
@@ -226,7 +227,7 @@ export default {
     },
     async verifyCode (code) {
       const userID = await this.user.userId
-      await this.$store.dispatch('verifyCode', { userID, code })
+      await this.$store.dispatch('verifyCode', { userID, code: code.trim() })
       if (this.confirm.isValidCode) {
         this.countStep = 3
         this.message = false
@@ -236,7 +237,7 @@ export default {
     },
     async resetPassword (password) {
       const userID = await this.user.userId
-      await this.$store.dispatch('resetPassword', { userID, password })
+      await this.$store.dispatch('resetPassword', { userID, password: password.trim() })
       if (this.confirm.message) {
         this.countStep = 4
       }
