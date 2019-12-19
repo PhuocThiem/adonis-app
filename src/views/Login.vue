@@ -13,6 +13,7 @@
             xs12
             sm8
             md6
+            lg4
           >
             <v-card class="elevation-24" >
               <v-toolbar
@@ -26,14 +27,14 @@
               <v-card-text>
                 <v-form>
                   <div v-if="isActived">
-                    <label style="color: red; font-size: 16px">Your account has not been actived</label>
+                    <label style="color: red; font-size: 16px">Your account has not been actived !</label>
                     <v-btn color="red" style="margin-left: 3px" @click.prevent="active(email)">Active now</v-btn>
                   </div>
                   <div v-if="counter">
-                    <label style="color: red; font-size: 16px">Activation email has been send to your email, you can get active in<h4> {{ this.time }}</h4> seconds</label>
+                    <label style="color: red; font-size: 16px">Activation email has been send to your email, you can get active in<h4> {{ this.time }}</h4> seconds !</label>
                   </div>
                   <div v-if="showError">
-                    <label style="color: red; font-size: 16px"> Email or password is incorrect</label>
+                    <label style="color: red; font-size: 16px"> Email or password is incorrect !</label>
                   </div>
                   <v-text-field
                     :counter="50"

@@ -3,7 +3,7 @@
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
-          <v-flex xs12 sm8 md6>
+          <v-flex xs12 sm8 md6 lg4>
             <v-card class="elevation-12">
               <v-toolbar color="blue" dark flat>
                 <v-toolbar-title>Register</v-toolbar-title>

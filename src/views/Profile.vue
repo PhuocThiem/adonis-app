@@ -17,7 +17,7 @@
         <div class="form-group">
           <label>Gender</label>
           <select class="form-control" v-model="selected">
-            <option v-for="(item, index) in genders" :key="index" :selected="item">{{ item }}</option>
+            <option v-for="(item, index) in gender" :key="index" :selected="item">{{ item }}</option>
           </select>
         </div>
         <div class="form-group">
@@ -47,14 +47,13 @@ export default {
     return {
       identifyCardNumber: '',
       phone: '',
-      genders: ['MALE', 'FEMALE', 'Undefine'],
+      gender: ['MALE', 'FEMALE', 'Undefine'],
       address: '',
       city: '',
       country: '',
       selected: ''
     }
   },
-
   computed: {
     ...mapState({
       requesting: state => get('users.state.user.requesting')
@@ -63,11 +62,31 @@ export default {
       profile: 'profile'
     })
   },
-
-  methods: {
-    update (identifyCardNumber, phone, selected, address, city, country) {
-      this.$store.dispatch('setProfile', { identifyCardNumber, phone, selected, address, city, country })
+  mounted () {
+    if (!this.profile.userID) {
+      this.identifyCardNumber = get(this.profile, 'identifyCardNumber')
+      this.phone = get(this.profile, 'phone')
+      this.selected = get(this.profile, 'gender')
+      this.address = get(this.profile, 'address')
+      this.city = get(this.profile, 'city')
+      this.country = get(this.profile, 'country')
     }
+  },
+  methods: {
+    async update (identifyCardNumber, phone, selected, address, city, country) {
+      await this.$store.dispatch('setProfile', { identifyCardNumber, phone, selected, address, city, country })
+      await location.reload()
+    }
+    // initProfile () {
+    //   if (!this.profile.userID) {
+    //     this.identifyCardNumber = get(this.profile, 'identifyCardNumber')
+    //     this.phone = get(this.profile, 'phone')
+    //     this.selected = get(this.profile, 'gender')
+    //     this.address = get(this.profile, 'address')
+    //     this.city = get(this.profile, 'city')
+    //     this.country = get(this.profile, 'country')
+    //   }
+    // }
   }
 }
 </script>

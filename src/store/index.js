@@ -12,6 +12,6 @@ export default new Vuex.Store({
     profiles
   },
   plugins: [createPersistedState({
-    paths: ['users.user']
+    paths: ['users.user', 'profiles.profile']
   })]
 })
