@@ -3,7 +3,7 @@
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
-          <v-flex xs12 sm8 md4>
+          <v-flex xs12 sm8 md6>
             <v-card class="elevation-12">
               <v-toolbar color="blue" dark flat>
                 <v-toolbar-title>Register</v-toolbar-title>
@@ -11,7 +11,7 @@
               </v-toolbar>
               <v-card-text>
                 <v-form>
-                  <div v-if="!error">
+                  <div v-if="!!error">
                     <label style="color: red; font-size: 16px">{{ error }}</label>
                   </div>
                   <v-text-field
@@ -182,12 +182,13 @@ export default {
       await this.$store.dispatch('register', { username, email, password })
       console.log('user', this.user)
       if (this.user.status === 400) {
-        this.error = 'This email already exists'
+        this.error = 'This email already exists, choose another email !'
       } else if (this.user.status === 403) {
         this.error4 = 'Your account is not activated, check your email to activated'
       } else {
         return this.$router.push({ path: '/' })
       }
+      console.log('error', this.error)
       return this.error
     },
     clear () {
