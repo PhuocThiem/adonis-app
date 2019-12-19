@@ -182,7 +182,7 @@ export default {
       await this.$store.dispatch('register', { username, email, password })
       console.log('user', this.user)
       if (this.user.status === 400) {
-        this.error = 'This email already exists, choose another email !'
+        this.error = 'This email already exists, choose another email   !'
       } else if (this.user.status === 403) {
         this.error4 = 'Your account is not activated, check your email to activated'
       } else {
