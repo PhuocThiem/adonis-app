@@ -130,8 +130,10 @@ export default {
   position: fixed !important;
 }
 .content {
-  margin-left: 370px;
+  margin-left: 400px;
   padding: 15px;
+  height: 100%;
+  width: 100%;
 }
 .detail {
   width: 370px;
