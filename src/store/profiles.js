@@ -56,8 +56,11 @@ const actions = {
   async uploadAvatar ({ commit }, { formData }) {
     commit(UPLOAD_AVATAR_REQUEST)
     try {
+      const res = await Profile.uploadAvatar(formData)
+      const data = get(res, 'data')
+      commit(UPLOAD_AVATAR_SUCCESS, { data })
     } catch (error) {
-
+      commit(UPLOAD_AVATAR_FAIL, { error: serializeError(error) })
     }
   }
 }

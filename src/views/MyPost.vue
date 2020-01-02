@@ -35,10 +35,11 @@ export default {
       const file = this.$refs.file.files[0]
       this.file = file
     },
-    onSubmit () {
-      const formData = new FormData()
-      formData.append('file', this.file)
-      this.$store.dispatch('uploadImage', formData)
+    async onSubmit () {
+      const formData = await new FormData()
+      await formData.append('avatar', Image)
+      console.log('formData', formData)
+      this.$store.dispatch('uploadAvatar', formData)
     }
   }
 }
