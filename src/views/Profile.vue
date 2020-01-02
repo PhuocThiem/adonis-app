@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+<div class="container">
     <div class="profile">
       <h1>Profile</h1>
       <form>
@@ -93,7 +93,7 @@ export default {
 
 <style scoped>
 .profile {
-  margin: 10px auto;
+  margin:10px auto;
   width: 800px;
   background-color: rgba(241, 241, 241, 0.308);
   border-radius: 10px;
