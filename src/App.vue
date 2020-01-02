@@ -1,5 +1,4 @@
 <template>
-  <div class="container-fluid">
     <div
       v-if="
         _.get($route, 'meta.public', false) &&
@@ -48,7 +47,6 @@
         <router-view></router-view>
       </div>
     </div>
-  </div>
   </div>
 </template>
 

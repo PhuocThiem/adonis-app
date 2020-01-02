@@ -9,11 +9,21 @@ import {
   SET_USER_PROFILE_FAIL,
   GET_USER_PROFILE_REQUEST,
   GET_USER_PROFILE_SUCCESS,
-  GET_USER_PROFILE_FAIL
+  GET_USER_PROFILE_FAIL,
+  UPLOAD_AVATAR_REQUEST,
+  UPLOAD_AVATAR_SUCCESS,
+  UPLOAD_AVATAR_FAIL
+
 } from '../constants/mutationTypes'
 
 const state = {
   profile: {
+    requesting: false,
+    status: '',
+    result: null,
+    error: null
+  },
+  avatar: {
     requesting: false,
     status: '',
     result: null,
@@ -41,6 +51,13 @@ const actions = {
       commit(GET_USER_PROFILE_SUCCESS, data)
     } catch (error) {
       commit(GET_USER_PROFILE_FAIL, { error: serializeError(error) })
+    }
+  },
+  async uploadAvatar ({ commit }, { formData }) {
+    commit(UPLOAD_AVATAR_REQUEST)
+    try {
+    } catch (error) {
+
     }
   }
 }
@@ -73,6 +90,20 @@ const mutations = {
     state.profile.requesting = true
     state.profile.status = 'error'
     state.profile.error = payload.error
+  },
+  [UPLOAD_AVATAR_REQUEST] (state) {
+    state.avatar.requesting = true
+    state.avatar.status = 'requesting..'
+  },
+  [UPLOAD_AVATAR_SUCCESS] (state, payload) {
+    state.avatar.requesting = true
+    state.avatar.status = 'success'
+    state.avatar.result = payload
+  },
+  [UPLOAD_AVATAR_FAIL] (state, payload) {
+    state.avatar.requesting = true
+    state.avatar.status = 'error'
+    state.avatar.error = payload.error
   }
 }
 
