@@ -53,11 +53,16 @@ const actions = {
       commit(GET_USER_PROFILE_FAIL, { error: serializeError(error) })
     }
   },
-  async uploadAvatar ({ commit }, { formData }) {
+  async uploadAvatar ({ commit }, { file }) {
     commit(UPLOAD_AVATAR_REQUEST)
     try {
+      const formData = new FormData()
+      formData.append('avatar', file)
+      console.log('formData in JS', formData)
+
       const res = await Profile.uploadAvatar(formData)
       const data = get(res, 'data')
+      console.log('data', data)
       commit(UPLOAD_AVATAR_SUCCESS, { data })
     } catch (error) {
       commit(UPLOAD_AVATAR_FAIL, { error: serializeError(error) })

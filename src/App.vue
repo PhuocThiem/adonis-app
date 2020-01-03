@@ -10,7 +10,7 @@
     <div v-else>
     <nav class="navbar navbar-dark bg-dark" style="padding: 10px; width: 100%">
       <div class="narvar-item" style="width: 100%; padding: 10px">
-        <label style="font-size: 40px; color: white">Personal Blog</label>
+        <label style="font-size: 40px; color: white">Thiên Địa Hội</label>
         <button
           class="btn warning"
           @click="logOut"
@@ -21,12 +21,14 @@
       </div>
     </nav>
     <div class="sidenav">
-      <div class="detail">
+        <div class="avatar">
         <img
-          style="height: 150px; width: 150px; border-radius: 50%"
-          src="https://scontent.fsgn2-3.fna.fbcdn.net/v/t1.0-9/52809915_376605666506476_5074019963438628864_n.jpg?_nc_cat=108&_nc_ohc=xDGPdZ9Rem0AQloy57MLHyaq0M3dkzOHZgatc4bideB7de3-7YXhfB0wA&_nc_ht=scontent.fsgn2-3.fna&oh=d3f832889bced9aa2fe7b8aa459fbf88&oe=5E81EFE0"
+          style="height: 200px; width: 200px; border-radius: 50%"
+          :src="_.get(profile, 'avatarUrl')"
           alt="Nhi Vo"
         />
+        </div>
+      <div class="detail">
         <h4><v-icon>mdi-account-check</v-icon> {{ _.get(user, 'username') }}</h4>
         <h4><v-icon>mdi-email</v-icon> {{ _.get(user, 'email') }}</h4>
         <h4><v-icon>mdi-phone-classic</v-icon> {{ _.get(profile, 'phone')}}</h4>
@@ -122,6 +124,11 @@ export default {
   -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
 }
+.avatar {
+  margin: 10px auto;
+  height: 200px;
+  width: 200px;
+}
 .main {
   height: 100%;
   width: 100%;
@@ -137,9 +144,6 @@ export default {
   width: 370px;
   margin-left: 10px;
   color: white
-}
-img {
-  margin-left: 25px;
 }
 ul {
   margin-top: 20px;

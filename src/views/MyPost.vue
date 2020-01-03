@@ -4,7 +4,7 @@
     style="width: 800px; background-color: light-gray"
   >
     <div class="file">
-      <form @submit.prevent = "onSubmit" enctype="multipart/form-data">
+      <form @submit.prevent = "onSubmit" enctype="form-data">
         <div class="fields">
           <label>Upload File</label><br />
           <input type="file" ref="file" @change="onSelect"/>
@@ -25,7 +25,7 @@ export default {
   name: 'FileUpload',
   data () {
     return {
-      files: [],
+      // files: [],
       file: '',
       message: ''
     }
@@ -34,12 +34,12 @@ export default {
     onSelect () {
       const file = this.$refs.file.files[0]
       this.file = file
+      console.log('file', this.file)
     },
     async onSubmit () {
-      const formData = await new FormData()
-      await formData.append('avatar', Image)
-      console.log('formData', formData)
-      this.$store.dispatch('uploadAvatar', formData)
+      console.log('file in VueCom', this.file)
+      await this.$store.dispatch('uploadAvatar', { file: this.file })
+      location.reload()
     }
   }
 }

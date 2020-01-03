@@ -6,6 +6,7 @@ import vuetify from './plugins/vuetify'
 import '@mdi/font/css/materialdesignicons.css'
 import lodash from './mixin/lodash'
 import Vuelidate from 'vuelidate'
+import FormData from 'form-data'
 
 Vue.use(Vuelidate)
 
@@ -18,5 +19,6 @@ new Vue({
   router,
   store,
   vuetify,
+  FormData,
   render: h => h(App)
 }).$mount('#app')

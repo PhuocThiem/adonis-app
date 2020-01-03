@@ -13,8 +13,14 @@ export default class Profile {
     const token = await Storage.getItem()
     return http.post('/users/set-user-profile ', { identifyCardNumber, phone, gender, address, city, country }, { headers: { 'Authorization': `Bearer ${token}` } })
   }
-  static async uploadAvatar (formData) {
+  static async getProfile (UserID) {
+    console.log('access API')
     const token = await Storage.getItem()
-    return http.post('/users/set-user-avatar', formData, { headers: { 'Authorization': `bearer ${token}` } })
+    return http.get(`/users/profile/${UserID}`, { headers: { 'Authorization': `bearer ${token}` } })
+  }
+  static async uploadAvatar (formData) {
+    console.log('access API')
+    const token = await Storage.getItem()
+    return http.post('/users/set-user-avatar', formData, { headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } })
   }
 }
