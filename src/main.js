@@ -7,6 +7,7 @@ import '@mdi/font/css/materialdesignicons.css'
 import lodash from './mixin/lodash'
 import Vuelidate from 'vuelidate'
 import FormData from 'form-data'
+import './dist/VueDropzone.css'
 
 Vue.use(Vuelidate)
 

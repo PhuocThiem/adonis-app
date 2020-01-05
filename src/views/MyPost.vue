@@ -4,10 +4,10 @@
     style="width: 800px; background-color: light-gray"
   >
     <div class="file">
-      <form @submit.prevent = "onSubmit" enctype="form-data">
+      <form @submit.prevent="onSubmit" enctype="form-data">
         <div class="fields">
           <label>Upload File</label><br />
-          <input type="file" ref="file" @change="onSelect"/>
+          <input type="file" ref="file" @change="onSelect" />
         </div>
         <div class="fields">
           <button>Submit</button>
@@ -17,6 +17,7 @@
         </div>
       </form>
     </div>
+    <vue-dropzone id="drop1" :options="dropOptions"></vue-dropzone>
   </div>
 </template>
 
@@ -44,3 +45,5 @@ export default {
   }
 }
 </script>
+
+<style scoped></style>
