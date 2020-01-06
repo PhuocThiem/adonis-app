@@ -8411,6 +8411,11 @@ vm-browserify@^1.0.1:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
 
+vue-avatar-cropper@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/vue-avatar-cropper/-/vue-avatar-cropper-1.0.5.tgz#c4be274d61bd699bfe2510deb053e2e49032cfb2"
+  integrity sha512-NNIZrc2CKZx8iIeVHom6PTxPgNtPolrmTkE0nlSokcf7shSse7XpiIXvJmBI/P3Jy2k4a31iroSYc31wn93sMg==
+
 vue-chartjs@^3.4.2:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/vue-chartjs/-/vue-chartjs-3.5.0.tgz#edd0c2be94c521bcbc5357c24afb9f3560855f84"
