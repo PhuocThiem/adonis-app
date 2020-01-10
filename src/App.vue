@@ -132,13 +132,13 @@ export default {
 .main {
   height: 100%;
   width: 100%;
-  position: fixed !important;
+  /* position: fixed !important; */
 }
 .content {
   margin-left: 400px;
   padding: 15px;
   height: 100%;
-  width: 100%;
+  width: calc(100%-400px);
 }
 .detail {
   width: 370px;
