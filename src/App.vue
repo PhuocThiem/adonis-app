@@ -8,9 +8,9 @@
       <router-view />
     </div>
     <div v-else>
-    <nav class="navbar navbar-dark bg-dark" style="padding: 10px; width: 100%">
+    <nav class="navbar" style="padding: 10px; width: 100%">
       <div class="narvar-item" style="width: 100%; padding: 10px">
-        <label style="font-size: 40px; color: white">Thiên Địa Hội</label>
+        <label style="font-size: 40px; color: white">Personal Blog</label>
         <button
           class="btn warning"
           @click="logOut"
@@ -106,17 +106,23 @@ export default {
   border-color: #ff9800;
   color: orange;
 }
+.navbar{
+  background: linear-gradient(to left, #0f0c29 , #302b63, #24243e);
+}
+.narvar-item{
+  text-shadow: 5px 2px 4px grey;
+}
 .warning:hover {
   background-image: linear-gradient(to bottom, #a17d3a1a, #9b5221);
 }
 .sidenav {
   height: 100%; /* Full-height: remove this if you want "auto" height */
   width: 400px; /* Set the width of the sidebar */
-  position: fixed !important; /*Fixed Sidebar (stay in place on scroll)*/
+  position: fixed !important;
   z-index: 1; /* Stay on top */
   top: 0; /*Stay at the top */
   left: 0;
-  background-image: linear-gradient(to bottom, #3aa17f1a, #21759b); /* Black */
+  background-image: linear-gradient(to left, #000046, rgb(28, 90, 224),#000046); /* Black */
   overflow-y: scroll; /* Disable horizontal scroll */
   padding-top: 20px;
   margin-top: 100px;
@@ -130,8 +136,6 @@ export default {
   width: 200px;
 }
 .main {
-  height: 100%;
-  width: 100%;
   /* position: fixed !important; */
 }
 .content {
@@ -154,7 +158,7 @@ li {
 }
 h3 {
   color: white;
-  text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+  text-shadow: 1px 1px 2px black, 0 0 25px rgb(6, 6, 85), 0 0 5px darkblue;
 }
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
