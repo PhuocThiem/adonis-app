@@ -1,82 +1,59 @@
 <template>
-  <div class="card vue-avatar-cropper-demo text-center">
-    <div class="card-body">
-      <img :src="user.avatar" class="card-img avatar" />
-      <div class="card-img-overlay">
-        <button class="btn btn-primary btn-sm" id="pick-avatar">Select an new image</button>
-      </div>
-      <h5 class="card-title mb-0">{{ user.nickname }}</h5>
-      <div class="text-muted">{{ user.username }}</div>
-    </div>
-    <div class="card-footer text-muted" v-html="message"></div>
-    <avatar-cropper
-        @uploading="handleUploading"
-        @uploaded="handleUploaded"
-        @completed="handleCompleted"
-        @error="handlerError"
-        trigger="#pick-avatar"
-        upload-url="https://demo.overtrue.me/upload.php" />
+  <div class="container">
+    <picture-input
+      ref="pictureInput"
+      @change="onChanged"
+      @remove="onRemoved"
+      :width="500"
+      :removable="true"
+      removeButtonClass="ui red button"
+      :height="500"
+      accept="image/jpeg, image/png, image/gif"
+      buttonClass="ui button primary"
+      :customStrings="{
+        upload: '<h1>Upload it!</h1>',
+        drag: 'Drag and drop your image here'
+      }"
+    >
+    </picture-input>
+    <button @click="attemptUpload" v-bind:class="{ disabled: !image }">
+  Upload
+</button>
   </div>
 </template>
 
 <script>
-import AvatarCropper from 'vue-avatar-cropper'
+import PictureInput from 'vue-picture-input'
 
 export default {
-  components: { AvatarCropper },
   data () {
     return {
-      message: 'ready',
-      user: {
-        id: 1,
-        nickname: '安正超',
-        username: 'overtrue',
-        avatar: 'https://avatars0.githubusercontent.com/u/1472352?s=460&v=4'
-      }
+      file: null
     }
   },
+  components: {
+    PictureInput
+  },
   methods: {
-    handleUploading (form, xhr) {
-      this.message = 'uploading...'
-    },
-    handleUploaded (response) {
-      if (response.status === 'success') {
-        this.user.avatar = response.url
-        // Maybe you need call vuex action to
-        // update user avatar, for example:
-        // this.$dispatch('updateUser', {avatar: response.url})
-        this.message = 'user avatar updated.'
+    onChanged () {
+      console.log('New picture loaded')
+      if (this.$refs.pictureInput.file) {
+        this.image = this.$refs.pictureInput.file
+      } else {
+        console.log('Old browser. No support for Filereader API')
       }
     },
-    handleCompleted (response, form, xhr) {
-      this.message = 'upload completed.'
+    onRemoved () {
+      this.image = ''
     },
-    handlerError (message, type, xhr) {
-      this.message = 'Oops! Something went wrong...'
+    async attemptUpload () {
+      if (this.image) {
+        await this.$store.dispatch('uploadAvatar', { file: this.image })
+      }
     }
   }
 }
 </script>
 
-<style>
-.vue-avatar-cropper-demo {
-  max-width: 18em;
-  margin: 0 auto;
-}
-.avatar {
-  width: 160px;
-  border-radius: 6px;
-  display: block;
-  margin: 20px auto;
-}
-.card-img-overlay {
-  display: none;
-  transition: all 0.5s;
-}
-.card-img-overlay button {
-  margin-top: 20vh;
-}
-.card:hover .card-img-overlay {
-  display: block;
-}
+<style scoped>
 </style>

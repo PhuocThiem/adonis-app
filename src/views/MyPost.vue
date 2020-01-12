@@ -17,7 +17,6 @@
         </div>
       </form>
     </div>
-    <vue-dropzone id="drop1" :options="dropOptions"></vue-dropzone>
   </div>
 </template>
 
