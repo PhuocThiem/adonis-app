@@ -1,7 +1,7 @@
 <template>
   <div
-    class="container fluid"
-    style="width: 800px; background-color: light-gray"
+    class="container"
+    style="width: 800px; background-color: light-gray; margin: 800px auto"
   >
     <div class="file">
       <form @submit.prevent="onSubmit" enctype="form-data">

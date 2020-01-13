@@ -44,10 +44,8 @@
       </div>
     </div>
     <!-- Page content -->
-    <div class="main">
       <div class="content">
         <router-view></router-view>
-      </div>
     </div>
   </div>
 </template>
@@ -107,7 +105,8 @@ export default {
   color: orange;
 }
 .navbar{
-  background: linear-gradient(to left, #0f0c29 , #302b63, #24243e);
+  background: linear-gradient(to left, #06beb6  , #48b1bf);
+  position: fixed !important;
 }
 .narvar-item{
   text-shadow: 5px 2px 4px grey;
@@ -116,14 +115,14 @@ export default {
   background-image: linear-gradient(to bottom, #a17d3a1a, #9b5221);
 }
 .sidenav {
-  height: 100%; /* Full-height: remove this if you want "auto" height */
+  height: 100vh; /* Full-height: remove this if you want "auto" height */
   width: 400px; /* Set the width of the sidebar */
   position: fixed !important;
   z-index: 1; /* Stay on top */
   top: 0; /*Stay at the top */
   left: 0;
   background-image: linear-gradient(to left, #000046, rgb(28, 90, 224),#000046); /* Black */
-  overflow-y: scroll; /* Disable horizontal scroll */
+  overflow-y: hidden;
   padding-top: 20px;
   margin-top: 100px;
   -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
@@ -135,13 +134,10 @@ export default {
   height: 200px;
   width: 200px;
 }
-.main {
-  /* position: fixed !important; */
-}
 .content {
   margin-left: 400px;
   padding: 15px;
-  height: 100%;
+  height: calc(100%-100px);
   width: calc(100%-400px);
 }
 .detail {

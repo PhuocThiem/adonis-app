@@ -1,59 +1,19 @@
 <template>
   <div class="container">
-    <picture-input
-      ref="pictureInput"
-      @change="onChanged"
-      @remove="onRemoved"
-      :width="500"
-      :removable="true"
-      removeButtonClass="ui red button"
-      :height="500"
-      accept="image/jpeg, image/png, image/gif"
-      buttonClass="ui button primary"
-      :customStrings="{
-        upload: '<h1>Upload it!</h1>',
-        drag: 'Drag and drop your image here'
-      }"
-    >
-    </picture-input>
-    <button @click="attemptUpload" v-bind:class="{ disabled: !image }">
-  Upload
-</button>
+    <h3>
+      Get started with BootstrapVue, based on the world's most popular framework
+      - Bootstrap v4, for building responsive, mobile-first sites using Vue.js.
+      Vue.js v2.6 is required, v2.6.11 is recommended Bootstrap 4.3.1 is
+      required, v4.4.1 is recommended PortalVue v2.1 is required by Toasts,
+      v2.1.7 is recommended jQuery is not required Check out what is new in
+      BootstrapVue release v2.2.0. If you are migrating from a previous
+      v2.0.0-rc.## release, please see the v2.0.0 migration guide.
+    </h3>
   </div>
 </template>
 
-<script>
-import PictureInput from 'vue-picture-input'
-
-export default {
-  data () {
-    return {
-      file: null
-    }
-  },
-  components: {
-    PictureInput
-  },
-  methods: {
-    onChanged () {
-      console.log('New picture loaded')
-      if (this.$refs.pictureInput.file) {
-        this.image = this.$refs.pictureInput.file
-      } else {
-        console.log('Old browser. No support for Filereader API')
-      }
-    },
-    onRemoved () {
-      this.image = ''
-    },
-    async attemptUpload () {
-      if (this.image) {
-        await this.$store.dispatch('uploadAvatar', { file: this.image })
-      }
-    }
-  }
-}
-</script>
-
 <style scoped>
+.container {
+  margin-top: 100px;
+}
 </style>
