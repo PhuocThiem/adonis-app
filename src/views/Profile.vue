@@ -107,7 +107,7 @@ export default {
         city,
         country
       })
-      await location.reload()
+      location.reload()
     }
     // initProfile () {
     //   if (!this.profile.userID) {
@@ -124,11 +124,8 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  /* margin-top: 100px; */
-}
 .profile {
-  margin: 100px auto ;
+  margin: 72px auto ;
   width: 800px;
   max-height: 100%;
   background-color: rgba(241, 241, 241, 0.308);

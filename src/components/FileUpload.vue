@@ -3,7 +3,6 @@
     <picture-input
       ref="pictureInput"
       @change="onChanged"
-      @remove="onRemoved"
       :width="500"
       :removable="true"
       removeButtonClass="ui red button"

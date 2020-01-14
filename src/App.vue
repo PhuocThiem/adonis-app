@@ -8,13 +8,14 @@
       <router-view />
     </div>
     <div v-else>
-    <nav class="navbar" clipped-left style="padding: 10px; width: 100%">
-      <div class="narvar-item" style="width: 100%; padding: 10px">
+    <nav class="navbar" clipped-left style="padding: 5px; width: 100%">
+      <div class="narvar-item" style="width: 100%; padding: 1px">
         <label style="font-size: 40px; color: white">Personal Blog</label>
+        <label style="font-size: 40px; color: white"><router-link to="/">Home</router-link></label>
         <button
           class="btn warning"
           @click="logOut"
-          style="float: right; margin-top: 12px; padding: 5px"
+          style="margin: 5px; padding: 5px 10px"
         >
           LogOut
         </button>
@@ -107,9 +108,12 @@ export default {
 .navbar{
   background: linear-gradient(to left, #06beb6  , #48b1bf);
   position: fixed !important;
+  box-shadow: 10px 15px 10px 0px rgba(0,0,0,0.75);
+  z-index: 2;
 }
-.narvar-item{
-  text-shadow: 5px 2px 4px grey;
+.narvar-item {
+  display: flex;
+  justify-content: space-between;
 }
 .warning:hover {
   background-image: linear-gradient(to bottom, #a17d3a1a, #9b5221);
@@ -124,9 +128,7 @@ export default {
   background-image: linear-gradient(to left, #000046, rgb(28, 90, 224),#000046); /* Black */
   overflow-y: hidden;
   padding-top: 20px;
-  margin-top: 100px;
-  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  margin-top: 72px;
   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
 }
 .avatar {
@@ -138,6 +140,7 @@ export default {
   margin-left: 400px;
   padding: 15px;
   width: calc(100%-400px);
+  z-index: 1;
 }
 .detail {
   width: 370px;
@@ -156,12 +159,12 @@ h3 {
   text-shadow: 1px 1px 2px black, 0 0 25px rgb(6, 6, 85), 0 0 5px darkblue;
 }
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
+/* @media screen and (max-height: 450px) {
   .sidenav {
     padding-top: 15px;
   }
   .sidenav a {
     font-size: 18px;
   }
-}
+} */
 </style>

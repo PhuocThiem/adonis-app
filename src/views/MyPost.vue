@@ -1,48 +1,76 @@
 <template>
-  <div
-    class="container"
-    style="margin-top: 100px"
+  <div class="container">
+  <v-card
+    max-width="344"
+    class="mx-auto"
   >
-    <div class="file">
-      <form @submit.prevent="onSubmit" enctype="form-data">
-        <div class="fields">
-          <label>Upload File</label><br />
-          <input type="file" ref="file" @change="onSelect" />
-        </div>
-        <div class="fields">
-          <button>Submit</button>
-        </div>
-        <div class="fields">
-          <h5>{{ message }}</h5>
-        </div>
-      </form>
-    </div>
+    <v-list-item>
+      <v-list-item-avatar color="grey"></v-list-item-avatar>
+      <v-list-item-content>
+        <v-list-item-title class="headline">Our Changing Planet</v-list-item-title>
+        <v-list-item-subtitle>by Kurt Wagner</v-list-item-subtitle>
+      </v-list-item-content>
+    </v-list-item>
+
+    <v-img
+      src="https://cdn.vuetifyjs.com/images/cards/mountain.jpg"
+      height="194"
+    ></v-img>
+
+    <v-card-text>
+      Visit ten places on our planet that are undergoing the biggest changes today.
+    </v-card-text>
+
+    <v-card-actions>
+      <v-btn
+        text
+        color="deep-purple accent-4"
+      >
+        Read
+      </v-btn>
+      <v-btn
+        text
+        color="deep-purple accent-4"
+      >
+        Bookmark
+      </v-btn>
+      <v-spacer></v-spacer>
+      <v-btn icon>
+        <v-icon>mdi-heart</v-icon>
+      </v-btn>
+      <v-btn icon>
+        <v-icon>mdi-share-variant</v-icon>
+      </v-btn>
+    </v-card-actions>
+  </v-card>
   </div>
 </template>
 
 <script>
+
+import { get } from 'lodash'
+import { mapGetters, mapState } from 'vuex'
+
 export default {
-  name: 'FileUpload',
-  data () {
-    return {
-      // files: [],
-      file: '',
-      message: ''
-    }
+  computed: {
+    ...mapState({
+      requesting: state => get('users.state.user.requesting')
+    }),
+    ...mapGetters({
+      user: 'user',
+      profile: 'profile'
+    })
   },
-  methods: {
-    onSelect () {
-      const file = this.$refs.file.files[0]
-      this.file = file
-      console.log('file', this.file)
-    },
-    async onSubmit () {
-      console.log('file in VueCom', this.file)
-      await this.$store.dispatch('uploadAvatar', { file: this.file })
-      location.reload()
-    }
+  async mounted () {
+    const UserID = await get(this.user, 'id')
+    console.log('UserId', UserID)
+    this.$store.dispatch('getPostOfUser', { UserID })
   }
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.container {
+  margin-top: 72px;
+}
+</style>

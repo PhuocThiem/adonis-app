@@ -14,6 +14,10 @@
 
 <style scoped>
 .container {
-  margin-top: 100px;
+  margin-top: 72px;
+}
+* {
+  padding: 0;
+  margin: 0;
 }
 </style>
