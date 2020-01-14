@@ -17,7 +17,7 @@
     >
     </picture-input>
     <div class="button" v-if="!!image">
-    <button type="button" class="btn btn-outline-success" @click="UploadImage" v-bind:class="{ disabled: !image }">
+    <button type="button" class="btn btn-outline-success" @click="UploadImage" :disabled="!image">
       Update
     </button>
     </div>

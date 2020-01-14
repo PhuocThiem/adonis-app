@@ -125,25 +125,24 @@ export default {
 
 <style scoped>
 .container {
-  margin-top: 100px;
+  /* margin-top: 100px; */
 }
 .profile {
-  margin: 0 auto ;
-  max-width: 800px;
+  margin: 100px auto ;
+  width: 800px;
   max-height: 100%;
   background-color: rgba(241, 241, 241, 0.308);
   border-radius: 10px;
   color: rgb(0, 0, 0);
-  -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  /* -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75); */
 }
 form {
   padding: 10px;
 }
 h1 {
   text-align: center;
-  text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
 }
 .button {
   padding: 10px;
@@ -156,7 +155,7 @@ h1 {
 .button:hover {
   background-image: linear-gradient(to bottom, #3aa17f1a, #1f7da8);
 }
-.form-control:hover {
+/* .form-control:hover {
   background-image: linear-gradient(to bottom, #04baf1d2, #0157f83f);
-}
+} */
 </style>

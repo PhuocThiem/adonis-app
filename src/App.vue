@@ -8,7 +8,7 @@
       <router-view />
     </div>
     <div v-else>
-    <nav class="navbar" style="padding: 10px; width: 100%">
+    <nav class="navbar" clipped-left style="padding: 10px; width: 100%">
       <div class="narvar-item" style="width: 100%; padding: 10px">
         <label style="font-size: 40px; color: white">Personal Blog</label>
         <button
@@ -137,7 +137,6 @@ export default {
 .content {
   margin-left: 400px;
   padding: 15px;
-  height: calc(100%-100px);
   width: calc(100%-400px);
 }
 .detail {
