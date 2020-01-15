@@ -10,8 +10,7 @@
     <div v-else>
     <nav class="navbar" clipped-left style="padding: 5px; width: 100%">
       <div class="narvar-item" style="width: 100%; padding: 1px">
-        <label style="font-size: 40px; color: white">Personal Blog</label>
-        <label style="font-size: 40px; color: white"><router-link to="/">Home</router-link></label>
+        <label style="font-size: 40px; color: white; font-family: Helvetica, Arial, Tahoma, sans-serif;"><router-link to="/">Home</router-link></label>
         <button
           class="btn warning"
           @click="logOut"
@@ -46,7 +45,9 @@
     </div>
     <!-- Page content -->
       <div class="content">
+        <div>
         <router-view></router-view>
+        </div>
     </div>
   </div>
 </template>
@@ -106,14 +107,15 @@ export default {
   color: orange;
 }
 .navbar{
-  background: linear-gradient(to left, #06beb6  , #48b1bf);
+  background: linear-gradient(to left, #06beb6  , #145058);
   position: fixed !important;
   box-shadow: 10px 15px 10px 0px rgba(0,0,0,0.75);
-  z-index: 2;
+  z-index: 1000;
 }
 .narvar-item {
   display: flex;
   justify-content: space-between;
+  font-family: Helvetica, Arial, Tahoma, sans-serif;
 }
 .warning:hover {
   background-image: linear-gradient(to bottom, #a17d3a1a, #9b5221);
@@ -125,7 +127,7 @@ export default {
   z-index: 1; /* Stay on top */
   top: 0; /*Stay at the top */
   left: 0;
-  background-image: linear-gradient(to left, #000046, rgb(28, 90, 224),#000046); /* Black */
+  background-image: linear-gradient(to top, #08adcabd, rgba(4, 65, 80, 0.801)); /* Black */
   overflow-y: hidden;
   padding-top: 20px;
   margin-top: 72px;
@@ -138,7 +140,7 @@ export default {
 }
 .content {
   margin-left: 400px;
-  padding: 15px;
+  padding-top: 80px;
   width: calc(100%-400px);
   z-index: 1;
 }
@@ -157,6 +159,12 @@ li {
 h3 {
   color: white;
   text-shadow: 1px 1px 2px black, 0 0 25px rgb(6, 6, 85), 0 0 5px darkblue;
+}
+hr {
+  margin: 10px auto;
+  border-top: 1px dashed black;
+  height: 1px;
+  width: 80%;
 }
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
 /* @media screen and (max-height: 450px) {
