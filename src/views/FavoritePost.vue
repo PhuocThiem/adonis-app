@@ -14,7 +14,6 @@
 
 <style scoped>
 .container {
-  margin-top: 72px;
 }
 * {
   padding: 0;

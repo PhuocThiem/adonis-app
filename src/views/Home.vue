@@ -1,10 +1,12 @@
 <template>
   <div class="container-fluid">
     <div class="search-bar">
-      <div class="form-control" placeholder="Categories">
-      </div>
-      <div class="form-control">
-      </div>
+      <select class="form-control" v-model="selected">
+        <option v-for="(item, index) in categories" :key="index">{{ item }}</option>
+      </select>
+      <select class="form-control">
+        <option>Default select</option>
+      </select>
     </div>
     <div class="row">
       <div
@@ -21,15 +23,17 @@
               <v-list-item-title class="headline">{{
                 _.get(item, "user.username")
               }}</v-list-item-title>
-              <v-list-item-subtitle>{{ _.get(item, 'createdAt') }}</v-list-item-subtitle>
+              <v-list-item-subtitle>{{
+                _.get(item, "createdAt")
+              }}</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
 
           <v-img :src="_.get(item, 'media[0].source')" height="194"></v-img>
           <v-list-item>
-          <v-list-item-title class="headline">{{
-            _.get(item, "title")
-          }}</v-list-item-title>
+            <v-list-item-title class="headline">{{
+              _.get(item, "title")
+            }}</v-list-item-title>
           </v-list-item>
           <v-card-text class="post-summary">
             {{ _.get(item, "description") }}
@@ -61,6 +65,12 @@ import { get } from 'lodash'
 import { mapGetters, mapState } from 'vuex'
 
 export default {
+  data () {
+    return {
+      categories: ['Funny', 'Happy', 'Lovely', 'Sadly', 'Angry'],
+      selected: ''
+    }
+  },
   computed: {
     ...mapState({
       requesting: state => get('users.state.user.requesting')
@@ -99,6 +109,7 @@ export default {
   padding: 10px 0;
   display: flex;
   justify-content: flex-start;
+  align-items: center
 }
 .post-content {
   /* margin-top: 70px; */
