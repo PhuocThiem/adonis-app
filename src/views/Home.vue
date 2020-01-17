@@ -1,60 +1,64 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid d-flex flex-column main-container">
     <div class="search-bar">
       <select class="form-control" v-model="selected">
-        <option v-for="(item, index) in categories" :key="index">{{ item }}</option>
+        <option v-for="(item, index) in categories" :key="index">{{
+          item
+        }}</option>
       </select>
       <select class="form-control">
         <option>Default select</option>
       </select>
     </div>
-    <div class="row">
-      <div
-        class="col-lg-3 col-xs-12 col-sm-8 col-md-6"
-        v-for="(item, index) in Posts"
-        :key="index"
-      >
-        <v-card max-width="344" class="mx-auto">
-          <v-list-item style="padding: 0px 5px">
-            <v-list-item-avatar style="margin-right: 10px;">
-              <v-img :src="_.get(item, 'user.profile.avatarUrl')"></v-img
-            ></v-list-item-avatar>
-            <v-list-item-content>
+    <div class="flex-fill content-container">
+      <div class="row">
+        <div
+          class="col-lg-3 col-xs-12 col-sm-8 col-md-6"
+          v-for="(item, index) in Posts"
+          :key="index"
+        >
+          <v-card max-width="344" class="mx-auto">
+            <v-list-item style="padding: 0px 5px">
+              <v-list-item-avatar style="margin-right: 10px;">
+                <v-img :src="_.get(item, 'user.profile.avatarUrl')"></v-img
+              ></v-list-item-avatar>
+              <v-list-item-content>
+                <v-list-item-title class="headline">{{
+                  _.get(item, "user.username")
+                }}</v-list-item-title>
+                <v-list-item-subtitle>{{
+                  _.get(item, "createdAt")
+                }}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-img :src="_.get(item, 'media[0].source')" height="194"></v-img>
+            <v-list-item>
               <v-list-item-title class="headline">{{
-                _.get(item, "user.username")
+                _.get(item, "title")
               }}</v-list-item-title>
-              <v-list-item-subtitle>{{
-                _.get(item, "createdAt")
-              }}</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
+            </v-list-item>
+            <v-card-text class="post-summary">
+              {{ _.get(item, "description") }}
+            </v-card-text>
 
-          <v-img :src="_.get(item, 'media[0].source')" height="194"></v-img>
-          <v-list-item>
-            <v-list-item-title class="headline">{{
-              _.get(item, "title")
-            }}</v-list-item-title>
-          </v-list-item>
-          <v-card-text class="post-summary">
-            {{ _.get(item, "description") }}
-          </v-card-text>
-
-          <v-card-actions>
-            <v-btn text color="deep-purple accent-4">
-              Read
-            </v-btn>
-            <v-btn text color="deep-purple accent-4">
-              Bookmark
-            </v-btn>
-            <v-spacer></v-spacer>
-            <v-btn icon>
-              <v-icon>mdi-heart</v-icon>
-            </v-btn>
-            <v-btn icon>
-              <v-icon>mdi-share-variant</v-icon>
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+            <v-card-actions>
+              <v-btn text color="deep-purple accent-4">
+                Read
+              </v-btn>
+              <v-btn text color="deep-purple accent-4">
+                Bookmark
+              </v-btn>
+              <v-spacer></v-spacer>
+              <v-btn icon>
+                <v-icon>mdi-heart</v-icon>
+              </v-btn>
+              <v-btn icon>
+                <v-icon>mdi-share-variant</v-icon>
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </div>
       </div>
     </div>
   </div>
@@ -104,22 +108,27 @@ export default {
   height: 70px;
   width: 100%;
   background-color: lightgray;
-  position: fixed !important;
-  z-index: 1;
   padding: 10px 0;
   display: flex;
   justify-content: flex-start;
-  align-items: center
+  align-items: center;
 }
-.post-content {
-  /* margin-top: 70px; */
-  z-index: 0;
-  padding-top: 5px;
-  max-height: 200px;
-  position: absolute;
+
+.content-container {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  flex-grow: 1;
 }
+
+.main-container {
+  height: calc(100vh - 90px);
+}
+
 .form-control {
   width: 200px;
   height: 50px;
 }
+/* ::-webkit-scrollbar {
+display: none;
+} */
 </style>
