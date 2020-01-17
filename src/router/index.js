@@ -8,6 +8,7 @@ import Profile from '../views/Profile.vue'
 import MyPost from '../views/MyPost.vue'
 import ResetPassword from '../views/ResetPassword.vue'
 import FavoritePost from '../views/FavoritePost.vue'
+import PostDetail from '../views/PostDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -58,6 +59,11 @@ const routes = [
       public: true,
       onlyWhenLogOut: true
     }
+  },
+  {
+    path: '/post-detail',
+    name: 'PostDetail',
+    component: PostDetail
   }
 ]
 

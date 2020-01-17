@@ -10,7 +10,7 @@
     <div v-else>
     <nav class="navbar" clipped-left style="padding: 5px; width: 100%">
       <div class="narvar-item" style="width: 100%; padding: 1px">
-        <label style="font-size: 40px; color: white; font-family: Helvetica, Arial, Tahoma, sans-serif;"><router-link to="/">Home</router-link></label>
+        <label><router-link to="/">Home</router-link></label>
         <button
           class="btn warning"
           @click="logOut"
@@ -111,6 +111,7 @@ export default {
   position: fixed !important;
   box-shadow: 10px 15px 10px 0px rgba(0,0,0,0.75);
   z-index: 1000;
+  height: 72px;
 }
 .narvar-item {
   display: flex;
@@ -140,7 +141,7 @@ export default {
 }
 .content {
   margin-left: 400px;
-  padding-top: 80px;
+  padding-top: 76px;
   width: calc(100%-400px);
   z-index: 1;
 }
@@ -165,6 +166,12 @@ hr {
   border-top: 1px dashed black;
   height: 1px;
   width: 80%;
+}
+label {
+  font-size: 40px;
+  background: -webkit-linear-gradient(rgb(130, 5, 179), rgb(0, 38, 248));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
 /* @media screen and (max-height: 450px) {

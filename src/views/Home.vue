@@ -1,26 +1,26 @@
 <template>
   <div class="container-fluid d-flex flex-column main-container">
     <div class="search-bar">
+      <div class="form-group search-text">
+        <input type="text" class="form-control search" placeholder="Search post...">
+      </div>
       <select class="form-control" v-model="selected">
         <option v-for="(item, index) in categories" :key="index">{{
           item
         }}</option>
       </select>
-      <select class="form-control">
-        <option>Default select</option>
-      </select>
     </div>
     <div class="flex-fill content-container">
       <div class="row">
         <div
-          class="col-lg-3 col-xs-12 col-sm-8 col-md-6"
+          class="col-lg-3 col-xs-12 col-sm-8 col-md-6 post"
           v-for="(item, index) in Posts"
           :key="index"
         >
           <v-card max-width="344" class="mx-auto">
             <v-list-item style="padding: 0px 5px">
-              <v-list-item-avatar style="margin-right: 10px;">
-                <v-img :src="_.get(item, 'user.profile.avatarUrl')"></v-img
+              <v-list-item-avatar style="margin-right: 10px" class="post-image">
+                <v-img :src="_.get(item, 'user.profile.avatarUrl')" @click="getPostDetail"></v-img
               ></v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title class="headline">{{
@@ -71,7 +71,7 @@ import { mapGetters, mapState } from 'vuex'
 export default {
   data () {
     return {
-      categories: ['Funny', 'Happy', 'Lovely', 'Sadly', 'Angry'],
+      categories: ['Choose type of post', 'Newest', 'Popular'],
       selected: ''
     }
   },
@@ -87,6 +87,10 @@ export default {
   },
   async mounted () {
     this.$store.dispatch('getAllPost')
+  },
+  methods: {
+    getPostDetail () {
+    }
   }
 }
 </script>
@@ -108,7 +112,6 @@ export default {
   height: 70px;
   width: 100%;
   background-color: lightgray;
-  padding: 10px 0;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -118,6 +121,7 @@ export default {
   overflow-y: scroll;
   overflow-x: hidden;
   flex-grow: 1;
+  margin-top: 10px;
 }
 
 .main-container {
@@ -127,6 +131,22 @@ export default {
 .form-control {
   width: 200px;
   height: 50px;
+}
+.search {
+  width: 300px;
+  height: 38px;
+}
+.search-text {
+  margin-top: 16px;
+  margin-right: 20px
+
+}
+/* .post:hover {
+  box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75);
+  border-radius: 5px;
+} */
+.post-image:hover {
+  cursor: pointer;
 }
 /* ::-webkit-scrollbar {
 display: none;
