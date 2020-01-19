@@ -17,7 +17,7 @@
           v-for="(item, index) in Posts"
           :key="index"
         >
-          <v-card max-width="344" class="mx-auto">
+          <v-card max-width="344" class="mx-auto" @click="getPostDetail">
             <v-list-item style="padding: 0px 5px">
               <v-list-item-avatar style="margin-right: 10px" class="post-image">
                 <v-img :src="_.get(item, 'user.profile.avatarUrl')" @click="getPostDetail"></v-img
@@ -31,7 +31,6 @@
                 }}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
-
             <v-img :src="_.get(item, 'media[0].source')" height="194"></v-img>
             <v-list-item>
               <v-list-item-title class="headline">{{
@@ -90,6 +89,7 @@ export default {
   },
   methods: {
     getPostDetail () {
+      console.log('get Card')
     }
   }
 }
@@ -109,9 +109,9 @@ export default {
   padding: 0 16px;
 }
 .search-bar {
-  height: 70px;
+  height: 40px;
   width: 100%;
-  background-color: lightgray;
+  background-color: rgba(255, 254, 254, 0.562);
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -141,13 +141,12 @@ export default {
   margin-right: 20px
 
 }
-/* .post:hover {
+.post:hover {
   box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75);
   border-radius: 5px;
-} */
-.post-image:hover {
   cursor: pointer;
 }
+
 /* ::-webkit-scrollbar {
 display: none;
 } */

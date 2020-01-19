@@ -123,7 +123,7 @@ export default {
 }
 .sidenav {
   height: 100vh; /* Full-height: remove this if you want "auto" height */
-  width: 400px; /* Set the width of the sidebar */
+  width: 300px; /* Set the width of the sidebar */
   position: fixed !important;
   z-index: 1; /* Stay on top */
   top: 0; /*Stay at the top */
@@ -140,8 +140,8 @@ export default {
   width: 200px;
 }
 .content {
-  margin-left: 400px;
-  padding-top: 76px;
+  margin-left: 300px;
+  padding-top: 80px;
   width: calc(100%-400px);
   z-index: 1;
 }
@@ -160,6 +160,16 @@ li {
 h3 {
   color: white;
   text-shadow: 1px 1px 2px black, 0 0 25px rgb(6, 6, 85), 0 0 5px darkblue;
+  line-height: 20px;
+  -webkit-line-clamp: 3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+h4 {
+  line-height: 20px;
+  -webkit-line-clamp: 3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
 }
 hr {
   margin: 10px auto;
