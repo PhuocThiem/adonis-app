@@ -11,4 +11,14 @@ export default class Post {
     const token = await Storage.getItem()
     return http.get('/post/get?', { headers: { 'Authorization': `bearer ${token}`, 'Content-Type': 'application/json' } })
   }
+  static async getPostByID (postID) {
+    console.log('GetPostById', postID)
+    const token = await Storage.getItem()
+    return http.get(`/post/get-post-detail/${postID}`, { headers: { 'Authorization': `bearer ${token}`, 'Content-Type': 'application/json' } })
+  }
+  static async likePost (postID, hasliked) {
+    console.log('GetPostById', postID)
+    const token = await Storage.getItem()
+    return http.post('/users/post/like ', { postID, hasliked }, { headers: { 'Authorization': `bearer ${token}`, 'Content-Type': 'application/json' } })
+  }
 }

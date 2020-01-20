@@ -17,7 +17,7 @@
           v-for="(item, index) in Posts"
           :key="index"
         >
-          <v-card max-width="344" class="mx-auto" @click="getPostDetail">
+          <v-card max-width="344" class="mx-auto" @click="getPostDetail(item)">
             <v-list-item style="padding: 0px 5px">
               <v-list-item-avatar style="margin-right: 10px" class="post-image">
                 <v-img :src="_.get(item, 'user.profile.avatarUrl')" @click="getPostDetail"></v-img
@@ -88,8 +88,10 @@ export default {
     this.$store.dispatch('getAllPost')
   },
   methods: {
-    getPostDetail () {
-      console.log('get Card')
+    getPostDetail (post) {
+      const postID = get(post, 'id').toString()
+      console.log('PostID', postID)
+      this.$router.push({ path: '/post-detail', query: { postID } })
     }
   }
 }

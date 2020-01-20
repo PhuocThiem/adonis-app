@@ -63,7 +63,8 @@ const routes = [
   {
     path: '/post-detail',
     name: 'PostDetail',
-    component: PostDetail
+    component: PostDetail,
+    props: (route) => ({ postID: route.query.postID })
   }
 ]
 
