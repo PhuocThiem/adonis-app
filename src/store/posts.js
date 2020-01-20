@@ -82,6 +82,7 @@ const actions = {
     try {
       const res = await Post.likePost(postID, hasliked)
       const data = get(res, 'data')
+      console.log('data LikePost', res)
       commit(LIKE_POST_SUCCESS, { data: data })
     } catch (error) {
       commit(LIKE_POST_FAIL, { error: serializeError(error) })

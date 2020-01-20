@@ -51,6 +51,7 @@
               <v-spacer></v-spacer>
               <v-btn icon>
                 <v-icon>mdi-heart</v-icon>
+                {{ _.get(item, '__meta__.totalLikeds') }}
               </v-btn>
               <v-btn icon>
                 <v-icon>mdi-share-variant</v-icon>
