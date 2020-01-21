@@ -14,7 +14,7 @@
         <div class="card-action">
           <div class="card-item">
             <div class="action-like">
-              <v-btn class="ma-4" text icon color="blue lighten-2" @click="likePost"><v-icon medium >mdi-thumb-up</v-icon> {{ _.get(Post, '__meta__.totalLikeds') }}</v-btn>
+              <v-btn class="ma-4" text icon color="blue lighten-2" @click="likePost(hasliked) & ! hasliked"><v-icon medium >mdi-thumb-up</v-icon> {{ _.get(Post, '__meta__.totalLikeds') }}</v-btn>
             </div>
           </div>
         </div>
@@ -29,6 +29,11 @@ import { mapGetters, mapState } from 'vuex'
 import { get } from 'lodash'
 
 export default {
+  data () {
+    return {
+      hasliked: false
+    }
+  },
   computed: {
     ...mapState({
       requesting1: state => get('posts.state.post.requesting'),
@@ -45,12 +50,20 @@ export default {
   async mounted () {
     const postID = await this.postID
     this.$store.dispatch('getPostByID', { postID })
+    this.hasliked = await get(this.Post, '__meta__.totalLikeds')
+    console.log(this.hasliked)
   },
   methods: {
-    async likePost () {
+    async likePost (hasliked) {
       const postID = await this.postID
-      const hasliked = await true
-      this.$store.dispatch('likePost', { postID, hasliked })
+      console.log('like', hasliked)
+      if (hasliked === true) {
+        hasliked = false
+        this.$store.dispatch('likePost', { postID, hasliked })
+      } else {
+        hasliked = true
+        this.$store.dispatch('likePost', { postID, hasliked })
+      }
     }
   }
 }
