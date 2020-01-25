@@ -85,7 +85,7 @@ export default {
       Posts: 'Posts'
     })
   },
-  async mounted () {
+  async created () {
     this.$store.dispatch('getAllPost')
   },
   methods: {

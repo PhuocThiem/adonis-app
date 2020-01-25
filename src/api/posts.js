@@ -16,8 +16,12 @@ export default class Post {
     const token = await Storage.getItem()
     return http.get(`/post/get-post-detail/${postID}`, { headers: { 'Authorization': `bearer ${token}`, 'Content-Type': 'application/json' } })
   }
+  static async getFavoritePosts (userID) {
+    console.log('Favorite UID', userID)
+    const token = await Storage.getItem()
+    return http.get(`/users/post-liked?userid=${userID}&limit=10&page=1`, { headers: { 'Authorization': `bearer ${token}`, 'Content-Type': 'application/json' } })
+  }
   static async likePost (postId, hasLiked) {
-    console.log('GetPostById', postId)
     console.log('liked???', hasLiked)
     const token = await Storage.getItem()
     return http.post('/users/post/like ', { postId, hasLiked }, { headers: { 'Authorization': `bearer ${token}`, 'Content-Type': 'application/json' } })

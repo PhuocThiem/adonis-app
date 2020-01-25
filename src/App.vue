@@ -159,9 +159,7 @@ li {
 }
 h3 {
   color: white;
-  text-shadow: 1px 1px 2px black, 0 0 25px rgb(6, 6, 85), 0 0 5px darkblue;
   line-height: 20px;
-  -webkit-line-clamp: 3;
   display: -webkit-box;
   -webkit-box-orient: vertical;
 }

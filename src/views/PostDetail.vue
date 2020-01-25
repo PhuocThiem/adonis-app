@@ -2,19 +2,40 @@
   <div class="container p-2">
     <div class="d-flex card">
       <div class="card-title">
-        <h3>{{ _.get(Post, 'title') }}</h3>
+        <h3>{{ _.get(Post, "title") }}</h3>
       </div>
       <div class="flex-fill card-content">
         <!-- <div class="card-image"> -->
-        <img :src="_.get(Post, 'media[0].source')">
+        <img :src="_.get(Post, 'media[0].source')" />
         <!-- </div> -->
         <div class="card-description">
-          <p>{{ _.get(Post, 'description') }}</p>
+          <p>{{ _.get(Post, "description") }}</p>
         </div>
         <div class="card-action">
           <div class="card-item">
-            <div class="action-like">
-              <v-btn class="ma-4" text icon color="blue lighten-2" @click="likePost(hasliked) & ! hasliked"><v-icon medium >mdi-thumb-up</v-icon> {{ _.get(Post, '__meta__.totalLikeds') }}</v-btn>
+            <div class="action-like" v-if="!_.get(Post, '__meta__.isUserLiked')">
+              <v-btn
+                class="ma-4"
+                text
+                icon
+                @click="likePost"
+                ><v-icon medium :class="{
+                'text-danger': !!_.get(Post, '__meta__.isUserLiked'),
+                }">mdi-thumb-up</v-icon>
+                {{ this.totalLike }}</v-btn
+              >
+            </div>
+            <div class="action-like" v-else>
+              <v-btn
+                class="ma-4"
+                text
+                icon
+                @click="likePost"
+                ><v-icon medium :class="{
+                'text-secondary': !_.get(Post, '__meta__.isUserLiked'),
+                }">mdi-thumb-up</v-icon>
+                {{ this.totalLike }}</v-btn
+              >
             </div>
           </div>
         </div>
@@ -24,14 +45,14 @@
 </template>
 
 <script>
-
 import { mapGetters, mapState } from 'vuex'
 import { get } from 'lodash'
 
 export default {
   data () {
     return {
-      hasliked: false
+      hasliked: false,
+      totalLike: 0
     }
   },
   computed: {
@@ -47,22 +68,29 @@ export default {
   props: {
     postID: String
   },
-  async mounted () {
+  async created () {
     const postID = await this.postID
     this.$store.dispatch('getPostByID', { postID })
-    this.hasliked = await get(this.Post, '__meta__.totalLikeds')
-    console.log(this.hasliked)
+    this.totalLike = get(this.Post, '__meta__.totalLikeds')
   },
   methods: {
-    async likePost (hasliked) {
+    async likePost () {
       const postID = await this.postID
-      console.log('like', hasliked)
-      if (hasliked === true) {
-        hasliked = false
-        this.$store.dispatch('likePost', { postID, hasliked })
+      const liked = await get(this.Post, '__Meta__.isUserLiked')
+      console.log('init liked', this.liked)
+      this.totalLike = await get(this.Post, '__meta__.totalLikeds')
+      if (liked === 1) {
+        this.hasliked = true
+        console.log('disLike in function...', this.hasliked)
+        const likePost = await this.hasliked
+        this.totalLike--
+        this.$store.dispatch('likePost', { postID, likePost })
       } else {
-        hasliked = true
-        this.$store.dispatch('likePost', { postID, hasliked })
+        this.hasliked = false
+        console.log('Liked in function...', this.hasliked)
+        const likePost = await this.hasliked
+        this.totalLike++
+        this.$store.dispatch('likePost', { postID, likePost })
       }
     }
   }
@@ -94,10 +122,10 @@ export default {
   height: 95vh;
 }
 img {
-   width: 100%;
-   background-size: cover;
-   height: calc(60vh);
-   background-position: center center;
+  width: 100%;
+  background-size: cover;
+  height: calc(60vh);
+  background-position: center center;
 }
 .card-description {
   width: 100%;

@@ -15,7 +15,11 @@ import {
   GET_POST_BY_ID_FAIL,
   LIKE_POST_REQUEST,
   LIKE_POST_SUCCESS,
-  LIKE_POST_FAIL
+  LIKE_POST_FAIL,
+  GET_FAVORITE_POST_REQUEST,
+  GET_FAVORITE_POST_SUCCESS,
+  GET_FAVORITE_POST_FAIL
+
 } from '../constants/mutationTypes'
 
 const state = {
@@ -38,6 +42,12 @@ const state = {
     error: null
   },
   likePost: {
+    requesting: false,
+    status: '',
+    result: null,
+    error: null
+  },
+  favoritePosts: {
     requesting: false,
     status: '',
     result: null,
@@ -79,6 +89,7 @@ const actions = {
   },
   async likePost ({ commit }, { postID, hasliked }) {
     commit(LIKE_POST_REQUEST)
+    console.log('hasLiked', hasliked)
     try {
       const res = await Post.likePost(postID, hasliked)
       const data = get(res, 'data')
@@ -86,6 +97,16 @@ const actions = {
       commit(LIKE_POST_SUCCESS, { data: data })
     } catch (error) {
       commit(LIKE_POST_FAIL, { error: serializeError(error) })
+    }
+  },
+  async getFavoritePosts ({ commit }, { userID }) {
+    commit(GET_FAVORITE_POST_REQUEST)
+    try {
+      const res = await Post.getFavoritePosts(userID)
+      const data = get(res, 'data')
+      commit(GET_FAVORITE_POST_SUCCESS, { data: data })
+    } catch (error) {
+      commit(GET_FAVORITE_POST_FAIL, { error: serializeError(error) })
     }
   }
 }
@@ -146,6 +167,20 @@ const mutations = {
     state.likePost.requesting = true
     state.likePost.status = 'error'
     state.likePost.result = payload.error
+  },
+  [GET_FAVORITE_POST_REQUEST] (state) {
+    state.favoritePosts.requesting = true
+    state.favoritePosts.status = 'requesting..'
+  },
+  [GET_FAVORITE_POST_SUCCESS] (state, payload) {
+    state.favoritePosts.requesting = false
+    state.favoritePosts.status = 'success'
+    state.favoritePosts.result = payload.data
+  },
+  [GET_FAVORITE_POST_FAIL] (state, payload) {
+    state.favoritePosts.requesting = true
+    state.favoritePosts.status = 'error'
+    state.favoritePosts.result = payload.error
   }
 }
 
@@ -153,7 +188,8 @@ const getters = {
   Posts: state => get(state, 'posts.result.data'),
   PostOfUser: state => get(state, 'postOfUser.result.data'),
   Post: state => get(state, 'post.result'),
-  PostLiked: state => get(state, 'likePost.result')
+  PostLiked: state => get(state, 'likePost.result'),
+  favoritePosts: state => get(state, 'favoritePosts.result')
 }
 
 export default {
