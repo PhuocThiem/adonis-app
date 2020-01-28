@@ -9,6 +9,7 @@ import MyPost from '../views/MyPost.vue'
 import ResetPassword from '../views/ResetPassword.vue'
 import FavoritePost from '../views/FavoritePost.vue'
 import PostDetail from '../views/PostDetail.vue'
+import TestComponent from '../views/TestComponent.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/mypost',
     name: 'My Post',
     component: MyPost
+  },
+  {
+    path: '/test',
+    name: 'TestComponent',
+    component: TestComponent
   },
   {
     path: '/favoritepost',

@@ -1,6 +1,7 @@
 <template>
-  <div class="container">
-    <div class="profile">
+  <div class="container-fluid d-flex flex-column main-container">
+    <div class="content">
+    <div class="flex-fill profile">
       <h1>Avatar</h1>
       <file-upload></file-upload>
       <hr>
@@ -57,6 +58,7 @@
         </button>
       </form>
     </div>
+  </div>
   </div>
 </template>
 
@@ -125,10 +127,17 @@ export default {
 </script>
 
 <style scoped>
+.main-container {
+  height: calc(100vh - 90px);
+}
+.content {
+  display: flex;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
 .profile {
   margin: 0px auto ;
   width: 800px;
-  max-height: 100%;
   border-radius: 10px;
   color: rgb(0, 0, 0);
   /* -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);

@@ -34,7 +34,7 @@
                 ><v-icon medium :class="{
                 'text-secondary': !_.get(Post, '__meta__.isUserLiked'),
                 }">mdi-thumb-up</v-icon>
-                {{ this.totalLike }}</v-btn
+                {{ _.get(Post, '__meta__.totalLikeds') }}</v-btn
               >
             </div>
           </div>
@@ -68,10 +68,10 @@ export default {
   props: {
     postID: String
   },
-  async created () {
+  async mounted () {
     const postID = await this.postID
-    this.$store.dispatch('getPostByID', { postID })
-    this.totalLike = get(this.Post, '__meta__.totalLikeds')
+    await this.$store.dispatch('getPostByID', { postID })
+    // this.totalLike = await get(res, '__meta__.totalLikeds')
   },
   methods: {
     async likePost () {

@@ -14,7 +14,7 @@
         <button
           class="btn warning"
           @click="logOut"
-          style="margin: 5px; padding: 5px 10px"
+          style="margin: 5px; padding: 0px 10px"
         >
           LogOut
         </button>
@@ -29,10 +29,10 @@
         />
         </div>
       <div class="detail">
-        <h4><v-icon>mdi-account-check</v-icon> {{ _.get(user, 'username') }}</h4>
-        <h4><v-icon>mdi-email</v-icon> {{ _.get(user, 'email') }}</h4>
-        <h4><v-icon>mdi-phone-classic</v-icon> {{ _.get(profile, 'phone')}}</h4>
-        <h4><v-icon>mdi-map-marker</v-icon> {{ _.get(profile, 'address')}}</h4>
+        <h4><v-icon class="text-warning">mdi-account-check</v-icon> {{ _.get(user, 'username') }}</h4>
+        <h4><v-icon class="text-success">mdi-email</v-icon> {{ _.get(user, 'email') }}</h4>
+        <h4><v-icon class="text-secondary">mdi-phone-classic</v-icon> {{ _.get(profile, 'phone')}}</h4>
+        <h4><v-icon class="text-primary">mdi-map-marker</v-icon> {{ _.get(profile, 'address')}}</h4>
         <br />
         <br />
         <hr />

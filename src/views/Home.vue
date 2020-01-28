@@ -1,11 +1,12 @@
 <template>
   <div class="container-fluid d-flex flex-column main-container">
-    <div class="search-bar">
+    <div class="d-flex search-bar">
       <div class="form-group search-text">
         <input type="text" class="form-control search" placeholder="Search post...">
       </div>
-      <select class="form-control" v-model="selected">
-        <option v-for="(item, index) in categories" :key="index">{{
+      <select class="form-control" style="height: 38px" v-model="selected">
+        <option value="" selected disabled hidden>Choose here..</option>
+        <option v-for="(item, index) in hashtags" :key="index">{{
           item
         }}</option>
       </select>
@@ -20,7 +21,7 @@
           <v-card max-width="344" class="mx-auto" @click="getPostDetail(item)">
             <v-list-item style="padding: 0px 5px">
               <v-list-item-avatar style="margin-right: 10px" class="post-image">
-                <v-img :src="_.get(item, 'user.profile.avatarUrl')" @click="getPostDetail"></v-img
+                <v-img :src="_.get(item, 'user.profile.avatarUrl')" @click="getPostDetail(item)"></v-img
               ></v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title class="headline">{{
@@ -71,7 +72,7 @@ import { mapGetters, mapState } from 'vuex'
 export default {
   data () {
     return {
-      categories: ['Choose type of post', 'Newest', 'Popular'],
+      hashtags: ['green', 'travel', 'sun', 'tree', 'mountain', 'tea', 'ice', 'water', 'dog', 'animal', 'leaf', 'house', 'lamp', 'light', 'night', 'winder', 'snow', 'road', 'lake', 'Bali'],
       selected: ''
     }
   },
@@ -100,7 +101,6 @@ export default {
 
 <style scoped>
 .container-fluid {
-  padding: 10px;
 }
 .post-summary {
   overflow: hidden;
@@ -129,6 +129,7 @@ export default {
 
 .main-container {
   height: calc(100vh - 90px);
+  padding-left: 10px;
 }
 
 .form-control {
