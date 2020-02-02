@@ -67,8 +67,6 @@ export default {
 </script>
 
 <style scoped>
-.container {
-}
 .main-container {
   height: calc(100vh - 90px);
   padding-left: 10px;

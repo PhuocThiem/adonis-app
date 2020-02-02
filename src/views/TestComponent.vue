@@ -6,7 +6,9 @@
       data-toggle="modal"
       data-target="#myModal"
     >
-      Open modal
+      <v-img :src="_.get(profile, 'avatarUrl')">
+
+      </v-img>
     </button>
 
     <!-- The Modal -->
@@ -23,11 +25,22 @@
 <script>
 
 import FileUpload from '../components/FileUpload'
+import { mapGetters, mapState } from 'vuex'
+import { get } from 'lodash'
 
 export default {
   components: {
     'file-upload': FileUpload
+  },
+  computed: {
+    ...mapState({
+      request: state => get('profiles.state.profile.requesting')
+    }),
+    ...mapGetters({
+      profile: 'profile'
+    })
   }
+
 }
 </script>
 <style scoped>

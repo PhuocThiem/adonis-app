@@ -1,64 +1,99 @@
 <template>
   <div class="container-fluid d-flex flex-column main-container">
     <div class="content">
-    <div class="flex-fill profile">
-      <h1>Avatar</h1>
-      <file-upload></file-upload>
-      <hr>
-      <form>
-        <div class="form-group">
-          <label>ID Card Number</label>
-          <input
-            class="form-control"
-            v-model="identifyCardNumber"
-            placeholder="Identify Card Number"
-          />
-          <small id="emailHelp" class="form-text text-muted"
-            >We'll never share your email with anyone else.</small
+      <div class="profile">
+        <h1>---------------------Profile---------------------</h1>
+        <div class="avatar">
+          <button
+            type="button"
+            style="border-radius: 50%"
+            data-toggle="modal"
+            data-target="#myModal"
           >
-        </div>
-        <div class="form-group">
-          <label>Phone Number</label>
-          <input
-            class="form-control"
-            placeholder="Phone Number"
-            v-model="phone"
-          />
-        </div>
-        <div class="form-group">
-          <label>Gender</label>
-          <select class="form-control" v-model="selected">
-            <option
-              v-for="(item, index) in gender"
-              :key="index"
-              :selected="item"
-              >{{ item }}</option
+            <v-img
+              style="height: 200px; width: 200px; border-radius: 50%"
+              :src="_.get(profile, 'avatarUrl')"
             >
-          </select>
+            </v-img>
+          </button>
         </div>
-        <div class="form-group">
-          <label>Address</label>
-          <input class="form-control" placeholder="Address" v-model="address" />
-        </div>
-        <div class="form-group">
-          <label>City</label>
-          <input class="form-control" placeholder="City" v-model="city" />
-        </div>
-        <div class="form-group">
-          <label>Country</label>
-          <input class="form-control" placeholder="Country" v-model="country" />
-        </div>
-        <button
-          class="button"
-          @click.prevent="
-            update(identifyCardNumber, phone, selected, address, city, country)
-          "
-        >
-          <b>Update</b>
-        </button>
-      </form>
+        <hr />
+        <form>
+          <div class="form-group">
+            <label>ID Card Number</label>
+            <input
+              class="form-control"
+              v-model="identifyCardNumber"
+              placeholder="Identify Card Number"
+            />
+            <small id="emailHelp" class="form-text text-muted"
+              >We'll never share your email with anyone else.</small
+            >
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input
+              class="form-control"
+              placeholder="Phone Number"
+              v-model="phone"
+            />
+          </div>
+          <div class="form-group">
+            <label>Gender</label>
+            <select class="form-control" v-model="selected">
+              <option
+                v-for="(item, index) in gender"
+                :key="index"
+                :selected="item"
+                >{{ item }}</option
+              >
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Address</label>
+            <input
+              class="form-control"
+              placeholder="Address"
+              v-model="address"
+            />
+          </div>
+          <div class="form-group">
+            <label>City</label>
+            <input class="form-control" placeholder="City" v-model="city" />
+          </div>
+          <div class="form-group">
+            <label>Country</label>
+            <input
+              class="form-control"
+              placeholder="Country"
+              v-model="country"
+            />
+          </div>
+          <button
+            class="button"
+            @click.prevent="
+              update(
+                identifyCardNumber,
+                phone,
+                selected,
+                address,
+                city,
+                country
+              )
+            "
+          >
+            <b>Update</b>
+          </button>
+        </form>
+      </div>
     </div>
-  </div>
+    <div class="modal fade" id="myModal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <file-upload></file-upload>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -131,12 +166,12 @@ export default {
   height: calc(100vh - 90px);
 }
 .content {
-  display: flex;
-  overflow-x: hidden;
+  width: 100%;
+  margin: 0 auto;
   overflow-y: auto;
 }
 .profile {
-  margin: 0px auto ;
+  margin: 0px auto;
   width: 800px;
   border-radius: 10px;
   color: rgb(0, 0, 0);
@@ -164,9 +199,20 @@ h1 {
 hr {
   margin: 10px auto;
   border-top: 1px dashed black;
-  color:#fff;
-  background-color:#fff;
+  color: #fff;
+  background-color: #fff;
   height: 1px;
   width: 100%;
+}
+.modal-content {
+  height: 500px;
+  width: 100%;
+}
+.avatar {
+  display: flex;
+  justify-content: center;
+}
+.avatar button:hover {
+  box-shadow: 1px 1px 10px 0px rgba(3, 243, 143, 0.75);
 }
 </style>

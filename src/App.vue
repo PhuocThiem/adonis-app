@@ -90,7 +90,7 @@ export default {
       this.$router.push('login')
     }
   },
-  async mounted () {
+  async created () {
     const userID = await get(this.user, 'id')
     this.$store.dispatch('getProfile', { userID })
   }

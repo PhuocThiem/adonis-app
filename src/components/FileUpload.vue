@@ -5,7 +5,6 @@
       @change="onChanged"
       :width="500"
       :removable="true"
-      removeButtonClass="ui red button"
       :height="250"
       accept="image/jpeg, image/png, image/gif"
       buttonClass="ui button primary"
@@ -16,7 +15,7 @@
     >
     </picture-input>
     <div class="button" v-if="!!image">
-    <button type="button" class="btn btn-outline-success" @click="UploadImage" :disabled="!image">
+    <button type="button" class="btn btn-outline-success" @click.once="UploadImage" :disabled="!image">
       Update
     </button>
     </div>
