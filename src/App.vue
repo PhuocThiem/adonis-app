@@ -10,7 +10,7 @@
     <div v-else>
     <nav class="navbar" clipped-left style="padding: 5px; width: 100%">
       <div class="narvar-item" style="width: 100%; padding: 1px">
-        <label><router-link to="/">Home</router-link></label>
+        <label><router-link class="nav-link" to="/">Home</router-link></label>
         <button
           class="btn warning"
           @click="logOut"
@@ -31,14 +31,14 @@
       <div class="detail">
         <h4><v-icon class="text-warning">mdi-account-check</v-icon> {{ _.get(user, 'username') }}</h4>
         <h4><v-icon class="text-success">mdi-email</v-icon> {{ _.get(user, 'email') }}</h4>
-        <h4><v-icon class="text-secondary">mdi-phone-classic</v-icon> {{ _.get(profile, 'phone')}}</h4>
-        <h4><v-icon class="text-primary">mdi-map-marker</v-icon> {{ _.get(profile, 'address')}}</h4>
+        <h4><v-icon class="text-primary">mdi-phone-classic</v-icon> {{ _.get(profile, 'phone')}}</h4>
+        <h4><v-icon class="text-danger">mdi-map-marker</v-icon> {{ _.get(profile, 'address')}}</h4>
         <br />
         <br />
         <hr />
         <ul>
           <h3>
-            <li v-for="(item, index) in menu" :key="index"><router-link :to="item.to">{{ item.name }}</router-link></li>
+            <li v-for="(item, index) in menu" :key="index"><router-link class="nav-link" :to="item.to">{{ item.name }}</router-link></li>
           </h3>
         </ul>
       </div>
@@ -90,7 +90,7 @@ export default {
       this.$router.push('login')
     }
   },
-  async created () {
+  async mounted () {
     const userID = await get(this.user, 'id')
     this.$store.dispatch('getProfile', { userID })
   }
@@ -101,6 +101,7 @@ export default {
 * {
   margin: 0;
   padding: 0;
+  font-family: "Courier New", Courier, monospace;
 }
 .warning {
   border-color: #ff9800;
@@ -116,7 +117,6 @@ export default {
 .narvar-item {
   display: flex;
   justify-content: space-between;
-  font-family: Helvetica, Arial, Tahoma, sans-serif;
 }
 .warning:hover {
   background-image: linear-gradient(to bottom, #a17d3a1a, #9b5221);
@@ -158,16 +158,13 @@ li {
   margin-bottom: 10px;
 }
 h3 {
-  color: white;
   line-height: 20px;
   display: -webkit-box;
   -webkit-box-orient: vertical;
 }
 h4 {
   line-height: 20px;
-  -webkit-line-clamp: 3;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 hr {
   margin: 10px auto;

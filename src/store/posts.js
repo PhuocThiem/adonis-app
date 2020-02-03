@@ -7,9 +7,6 @@ import {
   GET_ALL_POST_REQUEST,
   GET_ALL_POST_SUCCESS,
   GET_ALL_POST_FAIL,
-  GET_POST_OF_USER_REQUEST,
-  GET_POST_OF_USER_SUCCESS,
-  GET_POST_OF_USER_FAIL,
   GET_POST_BY_ID_REQUEST,
   GET_POST_BY_ID_SUCCESS,
   GET_POST_BY_ID_FAIL,
@@ -26,12 +23,6 @@ import {
 
 const state = {
   posts: {
-    requesting: false,
-    status: '',
-    result: null,
-    error: null
-  },
-  postOfUser: {
     requesting: false,
     status: '',
     result: null,
@@ -64,17 +55,6 @@ const state = {
 }
 
 const actions = {
-  async getPostOfUser ({ commit }, { UserID }) {
-    commit(GET_POST_OF_USER_REQUEST)
-    try {
-      console.log('UserId in Store', UserID)
-      const res = await Post.getPostOfUser(UserID)
-      const data = get(res, 'data')
-      commit(GET_POST_OF_USER_SUCCESS, { data: data })
-    } catch (error) {
-      commit(GET_POST_OF_USER_FAIL, { error: serializeError(error) })
-    }
-  },
   async getAllPost ({ commit }) {
     commit(GET_ALL_POST_REQUEST)
     try {
@@ -130,20 +110,6 @@ const actions = {
 }
 
 const mutations = {
-  [GET_POST_OF_USER_REQUEST] (state) {
-    state.postOfUser.requesting = true
-    state.postOfUser.status = 'requesting..'
-  },
-  [GET_POST_OF_USER_SUCCESS] (state, payload) {
-    state.postOfUser.requesting = false
-    state.postOfUser.status = 'success'
-    state.postOfUser.result = payload
-  },
-  [GET_POST_OF_USER_FAIL] (state, payload) {
-    state.postOfUser.requesting = true
-    state.postOfUser.status = 'error'
-    state.postOfUser.error = payload.error
-  },
   [GET_ALL_POST_REQUEST] (state) {
     state.posts.requesting = true
     state.posts.status = 'requesting..'
@@ -218,11 +184,10 @@ const mutations = {
 
 const getters = {
   Posts: state => get(state, 'posts.result.data'),
-  PostOfUser: state => get(state, 'postOfUser.result.data'),
   Post: state => get(state, 'post.result'),
   PostLiked: state => get(state, 'likePost.result'),
   favoritePosts: state => get(state, 'favoritePosts.result.data'),
-  postedPosts: state => get(state, 'postedPosts.result')
+  postedPosts: state => get(state, 'postedPosts.result.data')
 }
 
 export default {

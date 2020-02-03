@@ -10,7 +10,7 @@
       buttonClass="ui button primary"
       :customStrings="{
         upload: '<h1>Upload it!</h1>',
-        drag: 'Drag and drop your avatar here'
+        drag: 'Drag and drop your image here'
       }"
     >
     </picture-input>

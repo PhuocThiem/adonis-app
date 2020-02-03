@@ -10,6 +10,7 @@ import ResetPassword from '../views/ResetPassword.vue'
 import FavoritePost from '../views/FavoritePost.vue'
 import PostDetail from '../views/PostDetail.vue'
 import TestComponent from '../views/TestComponent.vue'
+import PostUpload from '../components/PostUpload.vue'
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,11 @@ const routes = [
     path: '/test',
     name: 'TestComponent',
     component: TestComponent
+  },
+  {
+    path: '/postUpload',
+    name: 'postUpload',
+    component: PostUpload
   },
   {
     path: '/favoritepost',

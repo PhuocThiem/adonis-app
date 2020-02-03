@@ -2,7 +2,7 @@
   <div class="container-fluid d-flex flex-column main-container">
     <div class="content">
       <div class="profile">
-        <h1>---------------------Profile---------------------</h1>
+        <h1>Profile</h1>
         <div class="avatar">
           <button
             type="button"
@@ -41,6 +41,10 @@
           <div class="form-group">
             <label>Gender</label>
             <select class="form-control" v-model="selected">
+              <option
+                selected disabled hidden
+                >Gender</option
+              >
               <option
                 v-for="(item, index) in gender"
                 :key="index"
@@ -110,7 +114,7 @@ export default {
     return {
       identifyCardNumber: '',
       phone: '',
-      gender: ['MALE', 'FEMALE', 'Undefine'],
+      gender: ['MALE', 'FEMALE'],
       address: '',
       city: '',
       country: '',
@@ -119,7 +123,7 @@ export default {
   },
   computed: {
     ...mapState({
-      requesting: state => get('users.state.user.requesting')
+      getProfileRequest: state => get('profiles.state.profile.requesting')
     }),
     ...mapGetters({
       profile: 'profile'
